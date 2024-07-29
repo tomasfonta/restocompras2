@@ -1,9 +1,8 @@
-package com.tf.restocompras.web;
+package com.tf.restocompras.controller;
 
 import com.tf.restocompras.model.User;
 import com.tf.restocompras.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +50,7 @@ public class UserController {
         Optional<User> user = userService.getUserById(id);
         if (user.isPresent()) {
             User updatedUser = user.get();
+            updatedUser.getUsername();
             updatedUser.setUsername(userDetails.getUsername());
             updatedUser.setEmail(userDetails.getEmail());
             updatedUser.setPassword(userDetails.getPassword());

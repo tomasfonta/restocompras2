@@ -1,36 +1,61 @@
 package com.tf.restocompras.service;
 
-import com.tf.restocompras.model.Category;
+import com.tf.restocompras.error.NotFoundException;
+import com.tf.restocompras.model.category.Category;
+import com.tf.restocompras.model.category.CategoryCreateRequestDto;
+import com.tf.restocompras.model.category.CategoryResponseDto;
+import com.tf.restocompras.model.category.CategoryUpdateRequestDto;
 import com.tf.restocompras.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tf.restocompras.service.mapper.CategoryMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
-    @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
     }
 
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+
+    public List<CategoryResponseDto> getAllCategories() {
+
+        List<Category> categories = categoryRepository.findAll();
+        return categories.stream().map(categoryMapper::mapEntityToDto).collect(Collectors.toList());
     }
 
-    public Optional<Category> getCategoryById(Long id) {
-        return categoryRepository.findById(id);
+    public CategoryResponseDto getCategoryById(Long id) {
+
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Category : " + id + " not found"));
+
+        return categoryMapper.mapEntityToDto(category);
+
     }
 
-    public Category saveCategory(Category category) {
-        return categoryRepository.save(category);
+    public CategoryResponseDto updateCategory(CategoryUpdateRequestDto categoryUpdateRequestDto) {
+        categoryRepository.findById(categoryUpdateRequestDto.id())
+                .orElseThrow(() -> new NotFoundException("Category : " + categoryUpdateRequestDto.id() + " not found"));
+        Category category = categoryRepository.save(categoryMapper.mapDtoToEntity(categoryUpdateRequestDto));
+        return categoryMapper.mapEntityToDto(category);
+    }
+
+    public CategoryResponseDto createCategory(CategoryCreateRequestDto categoryCreateRequestDto) {
+        Category category = categoryRepository.save(categoryMapper.mapDtoToEntity(categoryCreateRequestDto));
+        return categoryMapper.mapEntityToDto(category);
     }
 
     public void deleteCategory(Long id) {
+        categoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Category : " + id + " not found"));
         categoryRepository.deleteById(id);
     }
 }

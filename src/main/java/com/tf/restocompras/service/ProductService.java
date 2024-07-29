@@ -1,19 +1,22 @@
 package com.tf.restocompras.service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.tf.restocompras.model.Product;
+import com.tf.restocompras.model.product.Product;
 import com.tf.restocompras.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+
 public class ProductService {
 
     private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
 
     public List<Product> findAll() {
         return productRepository.findAll();
