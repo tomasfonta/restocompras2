@@ -1,7 +1,7 @@
 package com.tf.restocompras.model.product;
 
 
-import com.tf.restocompras.model.User;
+import com.tf.restocompras.model.user.User;
 import com.tf.restocompras.model.category.Category;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

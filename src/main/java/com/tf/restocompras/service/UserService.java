@@ -1,12 +1,16 @@
 package com.tf.restocompras.service;
 
-import com.tf.restocompras.model.User;
+import com.tf.restocompras.error.NotFoundException;
+import com.tf.restocompras.model.user.UserCreateRequestDto;
+import com.tf.restocompras.model.user.UserResponseDto;
+import com.tf.restocompras.model.user.UserUpdateRequestDto;
 import com.tf.restocompras.repository.UserRepository;
+import com.tf.restocompras.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -15,23 +19,48 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    private final UserMapper userMapper;
+
+    public List<UserResponseDto> getAllUsers() {
+
+        return userRepository.findAll().stream().map(userMapper::mapEntityToDto)
+                .collect(Collectors.toList());
     }
 
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public UserResponseDto getUserById(Long id) {
+
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User : " + id + " not found"));
+
+        return userMapper.mapEntityToDto(user);
+
     }
 
-    public Optional<User> getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserResponseDto getUserByUsername(String username) {
+        var user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("User : " + username + " not found"));
+        return userMapper.mapEntityToDto(user);
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public UserResponseDto saveUser(UserCreateRequestDto userCreateRequestDto) {
+        var user = userMapper.mapDtoToEntity(userCreateRequestDto);
+        var userSaved = userRepository.save(user);
+        return userMapper.mapEntityToDto(userSaved);
+    }
+
+    public UserResponseDto updateUser(UserUpdateRequestDto userUpdateRequestDto) {
+        var user = userRepository.findById(userUpdateRequestDto.id())
+                .orElseThrow(() -> new NotFoundException("User : " + userUpdateRequestDto.id() + " not found"));
+        user.setEmail(userUpdateRequestDto.email());
+        user.setUsername(userUpdateRequestDto.name());
+        user.setPassword(userUpdateRequestDto.password());
+        var userSaved = userRepository.save(user);
+        return userMapper.mapEntityToDto(userSaved);
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User : " + id + " not found"));
+        userRepository.delete(user);
     }
 }

@@ -1,6 +1,6 @@
 package com.tf.restocompras;
 
-import com.tf.restocompras.model.User;
+import com.tf.restocompras.model.user.User;
 import com.tf.restocompras.model.category.Category;
 import com.tf.restocompras.model.product.Product;
 import com.tf.restocompras.repository.CategoryRepository;

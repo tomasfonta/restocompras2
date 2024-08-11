@@ -1,6 +1,9 @@
 package com.tf.restocompras.controller;
 
-import lombok.AllArgsConstructor;
+import com.tf.restocompras.model.product.ProductCreateRequestDto;
+import com.tf.restocompras.model.product.ProductResponseDto;
+import com.tf.restocompras.model.product.ProductUpdateRequestDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +15,6 @@ import com.tf.restocompras.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
@@ -25,23 +27,23 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.findAll();
+    public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
+        return ResponseEntity.ok(productService.findAll());
     }
 
     @GetMapping("/{id}")
-    public Optional<Product> getProductById(@PathVariable Long id) {
-        return productService.findById(id);
+    public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.findById(id));
     }
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.save(product);
+    public ResponseEntity<ProductResponseDto> createProduct(@RequestBody ProductCreateRequestDto productCreateRequestDto) {
+        return ResponseEntity.ok(productService.save(productCreateRequestDto));
     }
 
-    @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        return productService.save(product);
+    @PutMapping
+    public ResponseEntity<ProductResponseDto> updateProduct( @RequestBody ProductUpdateRequestDto productUpdateRequestDto) {
+        return ResponseEntity.ok(productService.update(productUpdateRequestDto));
     }
 
     @DeleteMapping("/{id}")

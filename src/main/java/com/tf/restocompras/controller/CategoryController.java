@@ -28,8 +28,8 @@ public class CategoryController {
 
 
     @GetMapping
-    public List<CategoryResponseDto> getAllCategories() {
-        return categoryService.getAllCategories();
+    public ResponseEntity<List<CategoryResponseDto>> getAllCategories() {
+        return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
     @GetMapping("/{id}")
@@ -49,8 +49,8 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
-            categoryService.deleteCategory(id);
-            return ResponseEntity.noContent().build();
+        categoryService.deleteCategory(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

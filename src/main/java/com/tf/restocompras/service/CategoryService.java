@@ -58,4 +58,9 @@ public class CategoryService {
                 .orElseThrow(() -> new NotFoundException("Category : " + id + " not found"));
         categoryRepository.deleteById(id);
     }
+
+    public Category getCategoryByName(String name) {
+        return categoryRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException("Category : " + name + " not found"));
+    }
 }
