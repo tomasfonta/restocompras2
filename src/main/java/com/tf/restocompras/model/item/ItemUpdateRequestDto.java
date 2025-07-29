@@ -1,12 +1,13 @@
-package com.tf.restocompras.model.product;
+package com.tf.restocompras.model.item;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class ProductCreateRequestDto {
-
+public class ItemUpdateRequestDto {
+    @NotBlank
+    private Long id;
     @NotBlank
     private String name;
     @NotBlank
@@ -15,8 +16,8 @@ public class ProductCreateRequestDto {
     private Double price;
     @NotBlank
     private String image;
-    @NotBlank
-    private String categoryName;
+    @NotNull
+    private Long productId;
     @NotNull
     private Long userId;
 }

@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
 
 @Mapper(componentModel = "spring",
-        uses = {ProductMapper.class})
+        uses = {ItemMapper.class})
 public interface CategoryMapper {
 
 

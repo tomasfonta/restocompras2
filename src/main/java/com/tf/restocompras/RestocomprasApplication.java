@@ -1,11 +1,12 @@
 package com.tf.restocompras;
 
+import com.tf.restocompras.model.company.Restaurant;
+import com.tf.restocompras.model.company.Supplier;
+import com.tf.restocompras.model.item.Item;
+import com.tf.restocompras.model.product.Product;
 import com.tf.restocompras.model.user.User;
 import com.tf.restocompras.model.category.Category;
-import com.tf.restocompras.model.product.Product;
-import com.tf.restocompras.repository.CategoryRepository;
-import com.tf.restocompras.repository.ProductRepository;
-import com.tf.restocompras.repository.UserRepository;
+import com.tf.restocompras.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -21,77 +22,108 @@ public class RestocomprasApplication {
     public static void main(String[] args) {
         SpringApplication.run(RestocomprasApplication.class, args);
 
-
     }
 
     @Bean
     CommandLineRunner initializeDummyDataInTheDatabase(UserRepository userRepository,
                                                        CategoryRepository categoryRepository,
+                                                       ItemRepository itemRepository,
+                                                       RestaurantRepository restaurantRepository,
+                                                       SupplierRepository supplierRepository,
                                                        ProductRepository productRepository) {
 
         log.info("Creating dummy data in the database for testing purposes");
 
         return args -> {
             log.info("CommandLineRunner running in the Spring Boot Application");
-            User admin = User.builder()
-                    .id(1L)
-                    .username("admin")
-                    .email("fontanarrosatomas@gmail.com")
-                    .password("admin")
-                    .build();
-            userRepository.save(admin);
 
-            User user = User.builder()
-                    .id(2L)
-                    .username("joe")
-                    .email("joe@gmail.com")
+
+            User userSupplier = new User();
+            User userRestaurant = new User();
+            Supplier supplier = new Supplier();
+            Restaurant restaurant = new Restaurant();
+
+            userSupplier = User.builder()
+                    .username("suppler")
                     .password("password")
-                    .build();
-            userRepository.save(user);
-
-            Category electronics = Category.builder()
-                    .id(1L)
-                    .name("Electronics")
+                    .email("supplier@email.com")
                     .build();
 
-            categoryRepository.save(electronics);
+            userRestaurant = User.builder()
+                    .username("restaurant")
+                    .password("password")
+                    .email("restaurant@email.com")
+                    .build();
+
+            restaurant = Restaurant.builder()
+                    .name("Pizza House")
+                    .mail("restaurant@email.com")
+                    .address("Pallegrini 1234, Rosario, Santa Fe, Argentina")
+                    .phoneNumber("555-1234")
+                    .website("www.pizzapalace.com")
+                    .build();
+
+
+            supplier = Supplier.builder()
+                    .name("Proveedor")
+                    .mail("supplier@email.com")
+                    .address("Eva Peron 2000, Rosario, Santa Fe, Argentina")
+                    .phoneNumber("555-5678")
+                    .website("www.freshfoods.com")
+                    .rating(4.8)
+                    .deliveryTime(24)
+                    .build();
 
             Category pasta = Category.builder()
-                    .id(2L)
                     .name("Pasta")
                     .build();
-
             categoryRepository.save(pasta);
-            Category meat = Category.builder()
-                    .id(3L)
-                    .name("Meat")
-                    .build();
-            categoryRepository.save(meat);
 
-            Category cleaning = Category.builder()
-                    .id(4L)
-                    .name("Cleaning")
+            Category verduras = Category.builder()
+                    .name("Verduras")
                     .build();
-            categoryRepository.save(cleaning);
+            categoryRepository.save(verduras);
 
-            productRepository.save(Product.builder()
-                    .id(1L)
-                    .name("Laptop")
-                    .description("Dell XPS 15")
-                    .price(1500.0)
-                    .image("https://www.dell.com/en-us/shop/dell-laptops/xps-15-laptop/spd/xps-15-9500-laptop")
-                    .category(electronics)
-                    .user(user)
+            Category lacteos = Category.builder()
+                    .name("Lacteos")
+                    .build();
+            categoryRepository.save(lacteos);
+
+            Product productPasta = Product.builder()
+                    .name("Pasta")
+                    .category(pasta)
+                    .build();
+
+            productRepository.save(productPasta);
+
+
+            userRepository.save(userRestaurant);
+            userRepository.save(userSupplier);
+            supplierRepository.save(supplier);
+            restaurantRepository.save(restaurant);
+
+            userSupplier.setSupplier(supplier);
+            userRestaurant.setRestaurant(restaurant);
+
+             userRepository.save(userSupplier);
+             userRepository.save(userRestaurant);
+
+            itemRepository.save(Item.builder()
+                    .name("Leche Descremada")
+                    .description("Leche Descremada 1L La Serenisima")
+                    .price(2400.0)
+                    .image("https://jumboargentina.vtexassets.com/arquivos/ids/853882/Leche-Descremada-La-Seren-sima-1sachet-1lt-1-849813.jpg?v=638733299806900000")
+                    .product(productPasta)
+                    .user(userSupplier)
                     .build());
 
-            productRepository.save(Product.builder()
-                    .id(2L)
+            itemRepository.save(Item.builder()
                     .name("Spaghetti")
                     .description("Barilla Spaghetti 454g")
-                    .price(2.0)
-                    .image("https://hillshomemarket.com/wp-content/uploads/2013/03/Barilla-Spaghetti-Product-Detail-Page.jpg")
-                    .category(pasta)
-                    .user(user)
+                    .price(2400.0)
+                    .image("https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202103/15/00118003501170____12__600x600.jpg")
+                    .product(productPasta)
+                    .user(userSupplier)
                     .build());
 
             log.info("Dummy data successfully created in the database for testing purposes");

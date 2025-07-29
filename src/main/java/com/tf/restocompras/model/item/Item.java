@@ -1,32 +1,33 @@
-package com.tf.restocompras.model.category;
+package com.tf.restocompras.model.item;
 
-import com.tf.restocompras.model.item.Item;
+
 import com.tf.restocompras.model.product.Product;
-import jakarta.persistence.CascadeType;
+import com.tf.restocompras.model.user.User;
+import com.tf.restocompras.model.category.Category;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
-
 @Entity
-@Table(name = "categories")
+@Table(name = "products")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-public class Category {
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +35,14 @@ public class Category {
 
     @NotBlank
     private String name;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Product> products;
+    @NotBlank
+    private String description;
+    private Double price;
+    private String image;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

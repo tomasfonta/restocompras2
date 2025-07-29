@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +34,6 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("User : " + id + " not found"));
 
         return userMapper.mapEntityToDto(user);
-
     }
 
     public UserResponseDto getUserByUsername(String username) {
