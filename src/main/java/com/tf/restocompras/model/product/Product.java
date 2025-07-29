@@ -1,11 +1,11 @@
 package com.tf.restocompras.model.product;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tf.restocompras.model.category.Category;
 import com.tf.restocompras.model.item.Item;
-import com.tf.restocompras.model.recipe.Ingredients;
+import com.tf.restocompras.model.recipe.Ingredient;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -24,13 +24,14 @@ public class Product {
 
     private String name;
 
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Ingredients> ingredients;
+    private List<Ingredient> ingredients;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Item> items;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER , optional = false , cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 }

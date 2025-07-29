@@ -11,13 +11,6 @@ public class ItemResponseDto {
     private Long id;
     @NotBlank
     private String name;
-    @NotBlank
-    private String description;
-    @NotNull
-    private Double price;
-    @NotBlank
-    private String image;
-    @NotNull
     private Long productId;
     @NotNull
     private Long userId;

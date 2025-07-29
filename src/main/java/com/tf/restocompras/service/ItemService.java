@@ -5,6 +5,7 @@ import com.tf.restocompras.model.item.ItemCreateRequestDto;
 import com.tf.restocompras.model.item.ItemResponseDto;
 import com.tf.restocompras.model.item.ItemUpdateRequestDto;
 import com.tf.restocompras.repository.ItemRepository;
+import com.tf.restocompras.repository.ProductRepository;
 import com.tf.restocompras.service.mapper.ItemMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,14 @@ public class ItemService {
 
     private final ItemMapper itemMapper;
     private final ItemRepository itemRepository;
-    private final ProductService productService;
+    private final ProductRepository productRepository;
 
     public ItemService(ItemMapper itemMapper,
                        ItemRepository itemRepository,
-                       ProductService productService) {
+                       ProductRepository productRepository) {
         this.itemMapper = itemMapper;
         this.itemRepository = itemRepository;
-        this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     public List<ItemResponseDto> findAll() {
@@ -40,7 +41,8 @@ public class ItemService {
 
     public ItemResponseDto save(ItemCreateRequestDto itemCreateRequestDto) {
         var item = itemMapper.mapDtoToEntity(itemCreateRequestDto);
-        var product = productService.findById(itemCreateRequestDto.getProductId());
+        var product = productRepository.findById(itemCreateRequestDto.getProductId())
+                .orElseThrow(() -> new NotFoundException("Product not found with id " + itemCreateRequestDto.getProductId()));
         item.setProduct(product);
         itemRepository.save(item);
         return itemMapper.mapEntityToDto(item);
@@ -50,7 +52,8 @@ public class ItemService {
         var item = itemRepository.findById(itemUpdateRequestDto.getId())
                 .orElseThrow(() -> new NotFoundException("Item with id: " + itemUpdateRequestDto.getId() + " not found"));
 
-        var product = productService.findById(itemUpdateRequestDto.getProductId());
+        var product = productRepository.findById(itemUpdateRequestDto.getProductId())
+                .orElseThrow(() -> new NotFoundException("Product not found with id " + itemUpdateRequestDto.getProductId()));
         item.setProduct(product);
         item.setName(itemUpdateRequestDto.getName());
         item.setPrice(itemUpdateRequestDto.getPrice());

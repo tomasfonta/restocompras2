@@ -4,6 +4,8 @@ import com.tf.restocompras.model.company.Restaurant;
 import com.tf.restocompras.model.company.Supplier;
 import com.tf.restocompras.model.item.Item;
 import com.tf.restocompras.model.product.Product;
+import com.tf.restocompras.model.recipe.Ingredient;
+import com.tf.restocompras.model.recipe.Recipe;
 import com.tf.restocompras.model.user.User;
 import com.tf.restocompras.model.category.Category;
 import com.tf.restocompras.repository.*;
@@ -13,6 +15,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.math.BigDecimal;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
 
 @SpringBootApplication
 public class RestocomprasApplication {
@@ -30,7 +37,7 @@ public class RestocomprasApplication {
                                                        ItemRepository itemRepository,
                                                        RestaurantRepository restaurantRepository,
                                                        SupplierRepository supplierRepository,
-                                                       ProductRepository productRepository) {
+                                                       ProductRepository productRepository, IngredientRepository ingredientRepository, RecipeRepository recipeRepository) {
 
         log.info("Creating dummy data in the database for testing purposes");
 
@@ -42,6 +49,7 @@ public class RestocomprasApplication {
             User userRestaurant = new User();
             Supplier supplier = new Supplier();
             Restaurant restaurant = new Restaurant();
+
 
             userSupplier = User.builder()
                     .username("suppler")
@@ -62,6 +70,8 @@ public class RestocomprasApplication {
                     .phoneNumber("555-1234")
                     .website("www.pizzapalace.com")
                     .build();
+
+            restaurantRepository.save(restaurant);
 
 
             supplier = Supplier.builder()
@@ -93,14 +103,49 @@ public class RestocomprasApplication {
                     .name("Pasta")
                     .category(pasta)
                     .build();
-
             productRepository.save(productPasta);
 
+            Product productCrema = Product.builder()
+                    .name("Crema de Leche")
+                    .category(lacteos)
+                    .build();
+            productRepository.save(productCrema);
+
+            Ingredient ingredient = Ingredient.builder()
+                    .name("Spagetti")
+                    .quantity(BigDecimal.valueOf(200))
+                    .dimension("g")
+                    .product(productPasta)
+                    .supplier("Mi Propio Proveedor")
+                    .cost(BigDecimal.valueOf(1000))
+                    .build();
+
+            Ingredient crema = Ingredient.builder()
+                    .name("Crema de Leche")
+                    .quantity(BigDecimal.valueOf(2200))
+                    .dimension("ml")
+                    .product(productCrema)
+                    .supplier("Mi Propio Proveedor")
+                    .cost(BigDecimal.valueOf(3333))
+                    .build();
+
+            Recipe recipePasta = Recipe.builder()
+                    .name("Spaggetti a la Boloñesa")
+                    .description("Receta de Pasta con Salsa de Tomate")
+                    .cookingTime(Duration.ofMinutes(12))
+                    .isActive(true)
+                    .monthlyServings(20)
+                    .price(BigDecimal.valueOf(12500))
+                    .ingredients(List.of(ingredient, crema))
+                    .restaurant(restaurant)
+                    .build();
+
+            recipeRepository.save(recipePasta);
 
             userRepository.save(userRestaurant);
             userRepository.save(userSupplier);
             supplierRepository.save(supplier);
-            restaurantRepository.save(restaurant);
+
 
             userSupplier.setSupplier(supplier);
             userRestaurant.setRestaurant(restaurant);

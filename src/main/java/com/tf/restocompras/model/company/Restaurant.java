@@ -1,6 +1,7 @@
 package com.tf.restocompras.model.company;
 
 
+import com.tf.restocompras.model.recipe.Recipe;
 import com.tf.restocompras.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,4 +29,6 @@ public class Restaurant {
     private String website;
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> users;
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Recipe> recipes;
 }

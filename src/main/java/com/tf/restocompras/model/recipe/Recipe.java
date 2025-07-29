@@ -1,5 +1,7 @@
 package com.tf.restocompras.model.recipe;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tf.restocompras.model.company.Restaurant;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +24,7 @@ import java.util.List;
 public class Recipe {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
     private String name;
@@ -35,8 +38,13 @@ public class Recipe {
     private Integer monthlyServings;
     private Boolean isActive;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Ingredients> ingredients;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Ingredient> ingredients;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
 
 }
