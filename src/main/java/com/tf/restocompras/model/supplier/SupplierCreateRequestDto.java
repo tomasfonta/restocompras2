@@ -1,0 +1,11 @@
+package com.tf.restocompras.model.supplier;
+
+public record SupplierCreateRequestDto(
+        String name,
+        String mail,
+        String address,
+        String phoneNumber,
+        String website,
+        Double rating
+) {
+}

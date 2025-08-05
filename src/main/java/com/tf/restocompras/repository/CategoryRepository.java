@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface CategoryRepository extends ListCrudRepository<Category, Long> {
 
-    public Optional<Category> findByName(String name);
+     Optional<Category> findByName(String name);
 
+    Optional<Category> getById(Long id);
 }

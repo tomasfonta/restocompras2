@@ -1,7 +1,10 @@
 package com.tf.restocompras.controller;
 
-import com.tf.restocompras.model.recipe.Recipe;
+import com.tf.restocompras.model.recipe.RecipeCreateRequestDto;
+import com.tf.restocompras.model.recipe.RecipeResponseDto;
 import com.tf.restocompras.service.RecipeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/recipes")
+@Tag(name = "Recipe", description = "Endpoints for managing recipes")
 public class RecipeController {
     private final RecipeService recipeService;
 
@@ -16,27 +20,36 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
+    @Operation(summary = "Get all recipes", description = "Returns a list of all recipes")
     @GetMapping
-    public ResponseEntity<List<Recipe>> getAllRecipes() {
+    public ResponseEntity<List<RecipeResponseDto>> getAllRecipes() {
         return ResponseEntity.ok(recipeService.findAll());
     }
 
+    @Operation(summary = "Get recipe by ID", description = "Returns a recipe by its ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Recipe> getRecipeById(@PathVariable Long id) {
-        return recipeService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RecipeResponseDto> getRecipeById(@PathVariable Long id) {
+        return ResponseEntity.ok(recipeService.findById(id));
     }
 
+    @Operation(summary = "Create a new recipe", description = "Creates a new recipe without ingredients")
     @PostMapping
-    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
-        return ResponseEntity.ok(recipeService.save(recipe));
+    public ResponseEntity<RecipeResponseDto> createRecipe(@RequestBody RecipeCreateRequestDto recipeCreateRequestDto) {
+        return ResponseEntity.ok(recipeService.save(recipeCreateRequestDto));
     }
 
+    @Operation(summary = "Add ingredient to recipe", description = "Adds an ingredient to an existing recipe")
+    @PutMapping("/{recipeId}/ingredients/{ingredientId}")
+    public ResponseEntity<RecipeResponseDto> addIngredientToRecipe(
+            @PathVariable Long recipeId,
+            @PathVariable Long ingredientId) {
+        return ResponseEntity.ok(recipeService.addIngredientToRecipe(recipeId, ingredientId));
+    }
+
+    @Operation(summary = "Delete a recipe", description = "Deletes a recipe by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecipe(@PathVariable Long id) {
         recipeService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
-

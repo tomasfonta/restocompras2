@@ -1,16 +1,16 @@
 package com.tf.restocompras.controller;
 
-import com.tf.restocompras.model.product.Product;
 import com.tf.restocompras.model.product.ProductCreateRequestDto;
 import com.tf.restocompras.model.product.ProductResponseDto;
 import com.tf.restocompras.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
+@Tag(name = "Products", description = "Endpoints for managing products")
 @RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
@@ -40,4 +40,5 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 }
+
 

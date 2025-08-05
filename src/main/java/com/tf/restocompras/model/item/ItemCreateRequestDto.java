@@ -18,5 +18,5 @@ public class ItemCreateRequestDto {
     @NotNull
     private Long productId;
     @NotNull
-    private Long userId;
+    private Long supplierId;
 }

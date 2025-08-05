@@ -1,4 +1,4 @@
-package com.tf.restocompras.model.company;
+package com.tf.restocompras.model.restaurant;
 
 
 import com.tf.restocompras.model.recipe.Recipe;
@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,7 +19,7 @@ import java.util.UUID;
 @Table(name = "restaurants")
 public class Restaurant {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String mail;

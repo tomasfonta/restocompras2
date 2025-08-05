@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        return new ResponseEntity<>("Ouuuchhh Data Integrity error:" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Data Integrity error:" + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

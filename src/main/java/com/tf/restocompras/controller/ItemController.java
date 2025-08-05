@@ -55,8 +55,15 @@ public class ItemController {
 
     @Operation(summary = "Delete a Item", description = "Deletes a Item by its ID")
     @DeleteMapping("/{id}")
-    public void deleteItem(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         itemService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Get Items by Suplier ID", description = "Returns items for a given supplier ID")
+    @GetMapping("/users/{supplierId}")
+    public ResponseEntity<List<ItemResponseDto>> getItemsByUserId(@PathVariable Long supplierId) {
+        return ResponseEntity.ok(itemService.findBySupplierId(supplierId));
     }
 
 }

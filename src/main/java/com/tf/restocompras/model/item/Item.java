@@ -1,9 +1,8 @@
 package com.tf.restocompras.model.item;
 
 
+import com.tf.restocompras.model.supplier.Supplier;
 import com.tf.restocompras.model.product.Product;
-import com.tf.restocompras.model.user.User;
-import com.tf.restocompras.model.category.Category;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,6 +42,6 @@ public class Item {
     @JoinColumn(name = "product_id")
     private Product product;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 }

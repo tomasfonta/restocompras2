@@ -14,12 +14,12 @@ import java.util.List;
 public interface ItemMapper {
 
     @Mapping(target = "productId", source = "product.id")
-    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "supplierId", source = "supplier.id")
     ItemResponseDto mapEntityToDto(Item item);
 
 
     @Mapping(target = "product.id", source = "productId")
-    @Mapping(target = "user.id", source = "userId")
+    @Mapping(target = "supplier.id", source = "supplierId")
     Item mapDtoToEntity(ItemCreateRequestDto itemCreateRequestDto);
 
 }
