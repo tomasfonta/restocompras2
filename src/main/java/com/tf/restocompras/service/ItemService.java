@@ -1,10 +1,10 @@
 package com.tf.restocompras.service;
 
 import com.tf.restocompras.error.NotFoundException;
-import com.tf.restocompras.model.supplier.Supplier;
 import com.tf.restocompras.model.item.ItemCreateRequestDto;
 import com.tf.restocompras.model.item.ItemResponseDto;
 import com.tf.restocompras.model.item.ItemUpdateRequestDto;
+import com.tf.restocompras.model.supplier.Supplier;
 import com.tf.restocompras.repository.ItemRepository;
 import com.tf.restocompras.repository.ProductRepository;
 import com.tf.restocompras.repository.SupplierRepository;
@@ -51,6 +51,9 @@ public class ItemService {
         var product = productRepository.findById(itemCreateRequestDto.getProductId())
                 .orElseThrow(() -> new NotFoundException("Product not found with id " + itemCreateRequestDto.getProductId()));
         item.setProduct(product);
+        var supplier = supplierRepository.findById(itemCreateRequestDto.getSupplierId())
+                .orElseThrow(() -> new NotFoundException("Supplier not found with id " + itemCreateRequestDto.getSupplierId()));
+        item.setSupplier(supplier);
         itemRepository.save(item);
         return itemMapper.mapEntityToDto(item);
     }
