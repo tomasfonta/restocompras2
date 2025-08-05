@@ -208,7 +208,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/item/users/2",
+							"raw": "http://localhost:8080/api/item/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -218,7 +218,7 @@
 								"api",
 								"item",
 								"users",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -231,7 +231,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Leche La Serenisima 1L Descremada\",\n  \"description\": \"leche de 1l descremada\",\n  \"price\": 1200,\n  \"image\": \"string\",\n  \"productId\": {{lecheId}},\n  \"userId\": {{restaurantId}}\n}",
+							"raw": "{\n  \"name\": \"Leche La Serenisima 1L Descremada\",\n  \"description\": \"leche de 1l descremada\",\n  \"price\": 1200,\n  \"image\": \"string\",\n  \"productId\": {{lecheId}},\n  \"suppplierId\": {{restaurantId}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -628,6 +628,64 @@
 							"path": [
 								"api",
 								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Leche La Serenisima 1L Descremada\",\n  \"description\": \"leche de 1l descremada\",\n  \"price\": 1200,\n  \"image\": \"string\",\n  \"productId\": {{lecheId}},\n  \"supplierId\": {{supplierId}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/item",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create item 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Leche La Serenisima 10L Entera\",\n  \"description\": \"leche de 1l entera\",\n  \"price\": 1200,\n  \"image\": \"string\",\n  \"productId\": {{lecheId}},\n  \"supplierId\": {{supplierId}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/item",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"item"
 							]
 						}
 					},
