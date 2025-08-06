@@ -1,11 +1,24 @@
-FROM maven:3.9.6-amazoncorretto-21
+# ---- Stage 1: Build ----
+FROM eclipse-temurin:21-jdk-alpine as builder
 
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
+WORKDIR /app
 
-FROM amazoncorretto:21-alpine-jdk
+# Copy source and build it
+COPY . .
 
-COPY target/restocompras-0.0.1-SNAPSHOT.jar app.jar
-EXPOSE 8080
+# If using Maven
+RUN ./mvnw clean package -DskipTests
+
+# If using Gradle, use:
+# RUN ./gradlew build -x test
+
+# ---- Stage 2: Run ----
+FROM eclipse-temurin:21-jdk-alpine
+
+WORKDIR /app
+
+# Copy only the jar from builder stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Run the jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
