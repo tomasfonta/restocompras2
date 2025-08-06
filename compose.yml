@@ -7,23 +7,24 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER : 'user'
-      POSTGRES_PASSWORD : 'password'
-      POSTGRES_DB : 'resto_compras'
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'resto_compras'
     volumes:
       - my-db:/var/lib/postgresql/data
 
   pgadmin:
+    container_name: pgadmin
     image: dpage/pgadmin4
-    restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com # Change this to your desired pgAdmin login email
-      PGADMIN_DEFAULT_PASSWORD: password # Change this to a strong password for pgAdmin
-      PGADMIN_LISTEN_PORT: 80
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - my-db:/var/lib/postgresql/data
     ports:
       - "9000:80"
-    depends_on:
-      - postgres
+    restart: unless-stopped
 
 volumes:
   my-db:
