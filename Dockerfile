@@ -20,5 +20,8 @@ WORKDIR /app
 # Copy only the jar from builder stage
 COPY --from=builder /app/target/*.jar app.jar
 
+# Exponer el puerto en el que corre la app
+EXPOSE 8080
+
 # Run the jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
