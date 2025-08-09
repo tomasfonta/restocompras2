@@ -15,7 +15,7 @@ FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 # Copiar el .jar compilado desde la fase anterior
-COPY --from=builder /app/target/restocompras2-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /app/target/restocompras-0.0.1-SNAPSHOT.jar app.jar
 
 # Exponer el puerto en el que corre la app
 EXPOSE 8080
