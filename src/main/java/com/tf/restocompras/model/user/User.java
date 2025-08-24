@@ -1,5 +1,6 @@
 package com.tf.restocompras.model.user;
 
+import com.tf.restocompras.config.security.ApplicationRoles;
 import com.tf.restocompras.model.restaurant.Restaurant;
 import com.tf.restocompras.model.supplier.Supplier;
 import jakarta.persistence.*;
@@ -37,4 +38,5 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
+    private ApplicationRoles role;
 }

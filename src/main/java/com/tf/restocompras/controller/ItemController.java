@@ -4,16 +4,11 @@ package com.tf.restocompras.controller;
 import com.tf.restocompras.model.item.ItemCreateRequestDto;
 import com.tf.restocompras.model.item.ItemResponseDto;
 import com.tf.restocompras.model.item.ItemUpdateRequestDto;
+import com.tf.restocompras.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.tf.restocompras.service.ItemService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/item")
 @Tag(name = "Item", description = "Endpoints for managing Items")
+@PreAuthorize("hasAuthority('READ')")
 public class ItemController {
 
     private final ItemService itemService;
