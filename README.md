@@ -10,3 +10,22 @@ Domain model v 0.1:
 Postman Collection:
 You can import the Postman collection from the following
 file: [Postman Collection](docs/restocompras.postman_collection.json)
+
+User:
+Role: ADMIN
+email: admin@gmail.com
+password: password
+
+Role: USER
+email: user@gmail.com   
+password: password
+
+POST -> /login
+body:
+{
+"name": "user@gmail.com",
+"password": "password"
+}
+
+Authentication:
+JWT (JSON Web Token) is used for authentication.
