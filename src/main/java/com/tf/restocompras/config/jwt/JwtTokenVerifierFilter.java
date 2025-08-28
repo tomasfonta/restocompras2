@@ -34,6 +34,20 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+
+        return path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/webjars")
+                || path.equals("/swagger-ui.html")
+                || path.equals("/favicon.ico")
+                || path.startsWith("/error")
+                || path.startsWith("/.well-known");
+
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {

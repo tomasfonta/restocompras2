@@ -32,8 +32,14 @@ public class SpringSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers("/api/**").authenticated())
-                .httpBasic(Customizer.withDefaults());
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers("/api/**").authenticated()
+                                .requestMatchers(
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui.html",
+                                        "/webjars/**"
+                                ).permitAll());
         http.addFilter(jwtUserAuthenticationFilter);
         http.addFilterAfter(jwtTokenVerifierFilter, UsernamePasswordAuthenticationFilter.class);
 
