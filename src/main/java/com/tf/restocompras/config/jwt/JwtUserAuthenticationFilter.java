@@ -67,8 +67,8 @@ public class JwtUserAuthenticationFilter extends UsernamePasswordAuthenticationF
 
         String token = Jwts.builder().setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities())
-                .setIssuedAt(new Date())
-                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(expirationDays)))
+                .issuedAt(new Date())
+                .expiration(java.sql.Date.valueOf(LocalDate.now().plusDays(expirationDays)))
                 .signWith(Keys.hmacShaKeyFor(key.getBytes()))
                 .compact();
 
