@@ -7,6 +7,8 @@ import com.tf.restocompras.model.user.UserUpdateRequestDto;
 import com.tf.restocompras.repository.UserRepository;
 import com.tf.restocompras.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +46,8 @@ public class UserService {
 
     public UserResponseDto saveUser(UserCreateRequestDto userCreateRequestDto) {
         var user = userMapper.mapDtoToEntity(userCreateRequestDto);
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        user.setPassword(encoder.encode(userCreateRequestDto.password()));
         var userSaved = userRepository.save(user);
         return userMapper.mapEntityToDto(userSaved);
     }

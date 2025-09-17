@@ -29,7 +29,6 @@ public class RestoComprasApplication {
         }
 
         return args -> {
-
             PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
             User user = User.builder()
                     .password(encoder.encode("password"))
