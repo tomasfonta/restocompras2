@@ -1,6 +1,5 @@
 package com.tf.restocompras.service.mapper;
 
-import com.tf.restocompras.config.security.ApplicationRoles;
 import com.tf.restocompras.model.user.User;
 import com.tf.restocompras.model.user.UserCreateRequestDto;
 import com.tf.restocompras.model.user.UserResponseDto;
@@ -13,6 +12,7 @@ import org.mapstruct.NullValueMappingStrategy;
 public interface UserMapper {
 
     @Mapping(target = "name", source = "user.username")
+    @Mapping(target = "applicationRoles", source = "user.role")
     UserResponseDto mapEntityToDto(User user);
 
     @Mapping(target = "username", source = "dto.name")

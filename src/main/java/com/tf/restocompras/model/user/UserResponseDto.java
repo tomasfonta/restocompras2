@@ -1,9 +1,11 @@
 package com.tf.restocompras.model.user;
 
-import java.util.UUID;
+import com.tf.restocompras.config.security.ApplicationRoles;
 
 public record UserResponseDto(
         Long id,
         String name,
-        String email) {
+        String email,
+        ApplicationRoles applicationRoles
+) {
 }

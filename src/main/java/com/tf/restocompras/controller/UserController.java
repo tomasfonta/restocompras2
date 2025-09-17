@@ -33,6 +33,13 @@ public class UserController {
         return ResponseEntity.ok(userResponseDto);
     }
 
+    @Operation(summary = "Get user by Email", description = "Returns a user by their email")
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserResponseDto> getUserByEmail(@PathVariable String email) {
+        var userResponseDto = userService.getUserByEmail(email);
+        return ResponseEntity.ok(userResponseDto);
+    }
+
     @Operation(summary = "Get user by username", description = "Returns a user by their username")
     @GetMapping("/username/{username}")
     public ResponseEntity<UserResponseDto> getUserByUsername(@PathVariable String username) {
