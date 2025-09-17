@@ -1,5 +1,6 @@
 package com.tf.restocompras.service.mapper;
 
+import com.tf.restocompras.config.security.ApplicationRoles;
 import com.tf.restocompras.model.user.User;
 import com.tf.restocompras.model.user.UserCreateRequestDto;
 import com.tf.restocompras.model.user.UserResponseDto;

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 
 @Getter
@@ -38,5 +39,21 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
-    private ApplicationRoles role;
+    @NotEmpty
+    private ApplicationRoles role = ApplicationRoles.USER;
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(ApplicationRoles role) {
+        this.role = role;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (role == null) {
+            role = ApplicationRoles.USER;
+        }
+    }
 }
