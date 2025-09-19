@@ -20,5 +20,6 @@ public interface UserMapper {
     User mapDtoToEntity(UserUpdateRequestDto dto);
 
     @Mapping(target = "username", source = "dto.name")
+    @Mapping(target = "userBusinessType", source = "dto.userBusinessType")
     User mapDtoToEntity(UserCreateRequestDto dto);
 }

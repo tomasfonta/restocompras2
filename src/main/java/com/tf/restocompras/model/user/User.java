@@ -32,7 +32,7 @@ public class User {
     @Column(unique = true)
     @NotEmpty
     private String email;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
     @ManyToOne(fetch = FetchType.LAZY)

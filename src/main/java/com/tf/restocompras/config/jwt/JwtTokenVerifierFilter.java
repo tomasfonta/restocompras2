@@ -43,7 +43,8 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
                 || path.equals("/swagger-ui.html")
                 || path.equals("/favicon.ico")
                 || path.startsWith("/error")
-                || path.startsWith("/.well-known");
+                || path.startsWith("/.well-known")
+                || (path.equals("/api/users") && request.getMethod().equals("POST"));
 
     }
 

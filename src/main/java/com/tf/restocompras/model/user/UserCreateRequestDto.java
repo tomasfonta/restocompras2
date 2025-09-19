@@ -6,5 +6,7 @@ import lombok.Builder;
 public record UserCreateRequestDto(
         String name,
         String email,
-        String password) {
+        String password,
+        UserBusinessType userBusinessType
+) {
 }

@@ -36,13 +36,24 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers("/api/**").authenticated()
+                                .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                                 .requestMatchers(
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/swagger-ui.html",
                                         "/webjars/**"
-                                ).permitAll());
+                                ).permitAll()
+                                .requestMatchers(
+                                        "/api/categories/**",
+                                        "/api/products/**",
+                                        "/api/recipes/**",
+                                        "/api/items/**",
+                                        "/api/ingredients/**",
+                                        "/api/restaurants/**",
+                                        "/api/suppliers/**",
+                                        "/api/users/**"
+                                ).authenticated()
+                );
         http.addFilter(jwtUserAuthenticationFilter);
         http.addFilterAfter(jwtTokenVerifierFilter, UsernamePasswordAuthenticationFilter.class);
 

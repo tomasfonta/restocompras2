@@ -1,9 +1,9 @@
 package com.tf.restocompras.service;
 
+import com.tf.restocompras.config.security.ApplicationRoles;
 import com.tf.restocompras.error.NotFoundException;
-import com.tf.restocompras.model.user.UserCreateRequestDto;
-import com.tf.restocompras.model.user.UserResponseDto;
-import com.tf.restocompras.model.user.UserUpdateRequestDto;
+import com.tf.restocompras.model.restaurant.Restaurant;
+import com.tf.restocompras.model.user.*;
 import com.tf.restocompras.repository.UserRepository;
 import com.tf.restocompras.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
@@ -50,9 +50,15 @@ public class UserService {
     }
 
     public UserResponseDto saveUser(UserCreateRequestDto userCreateRequestDto) {
-        var user = userMapper.mapDtoToEntity(userCreateRequestDto);
+        User user = userMapper.mapDtoToEntity(userCreateRequestDto);
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(encoder.encode(userCreateRequestDto.password()));
+        user.setRole(ApplicationRoles.USER);
+
+        if (user.getUserBusinessType() == UserBusinessType.SUPPLIER) {
+            Restaurant.builder().users(List.of(user)).build();
+        }
+
         var userSaved = userRepository.save(user);
         return userMapper.mapEntityToDto(userSaved);
     }
