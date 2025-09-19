@@ -2,6 +2,7 @@ package com.tf.restocompras;
 
 import com.tf.restocompras.config.security.ApplicationRoles;
 import com.tf.restocompras.model.user.User;
+import com.tf.restocompras.model.user.UserBusinessType;
 import com.tf.restocompras.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,6 +36,7 @@ public class RestoComprasApplication {
                     .username("user")
                     .role(ApplicationRoles.USER)
                     .email("user@gmail.com")
+                    .userBusinessType(UserBusinessType.SUPPLIER)
                     .build();
 
             User admin = User.builder()
