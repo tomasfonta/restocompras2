@@ -25,8 +25,8 @@ public class Supplier {
     private String phoneNumber;
     private String website;
     private Double rating;
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<User> users;
+    @OneToOne(mappedBy = "supplier")
+    private User user;
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Item> items;
 }

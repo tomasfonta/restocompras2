@@ -1,26 +1,16 @@
 package com.tf.restocompras.model.item;
 
 
-import com.tf.restocompras.model.supplier.Supplier;
 import com.tf.restocompras.model.product.Product;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-
+import com.tf.restocompras.model.supplier.Supplier;
+import com.tf.restocompras.model.unit.Unit;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.ToString;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Entity
-@Table(name = "products")
+@Table(name = "items")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,6 +25,8 @@ public class Item {
     @NotBlank
     private String name;
     @NotBlank
+    private String brand;
+    @NotBlank
     private String description;
     private Double price;
     private String image;
@@ -44,4 +36,9 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
+    @NotNull
+    private Unit unit;
+    @NotNull
+    private Double quantity;
+
 }

@@ -47,11 +47,12 @@ public class SpringSecurityConfig {
                                         "/api/categories/**",
                                         "/api/products/**",
                                         "/api/recipes/**",
-                                        "/api/items/**",
+                                        "/api/item/**",
                                         "/api/ingredients/**",
                                         "/api/restaurants/**",
                                         "/api/suppliers/**",
-                                        "/api/users/**"
+                                        "/api/users/**",
+                                        "/api/units/**"
                                 ).authenticated()
                 );
         http.addFilter(jwtUserAuthenticationFilter);

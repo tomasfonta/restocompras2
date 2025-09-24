@@ -60,4 +60,11 @@ public class SupplierController {
             @PathVariable Long userId) {
         return ResponseEntity.ok(supplierService.addUserToSupplier(supplierId, userId));
     }
+
+    @Operation(summary = "Get Supplier with userId")
+    @GetMapping("/{supplierId}/users/{userId}")
+    public ResponseEntity<SupplierResponseDto> getSupplierWithUserId(
+            @PathVariable Long userId) {
+        return ResponseEntity.ok(supplierService.getSupplierByUserId(userId));
+    }
 }

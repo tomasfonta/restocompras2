@@ -18,10 +18,10 @@ public interface RestaurantMapper {
     List<RestaurantResponseDto> mapEntitiesToDtos(List<Restaurant> restaurants);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "users", ignore = true)
+    @Mapping(target = "user", ignore = true)
     Restaurant mapCreateDtoToEntity(RestaurantCreateRequestDto restaurantCreateRequestDto);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "users", ignore = true)
+    @Mapping(target = "user", ignore = true)
     void mapUpdateDtoToEntity(RestaurantUpdateRequestDto restaurantUpdateRequestDto, @MappingTarget Restaurant restaurant);
 }

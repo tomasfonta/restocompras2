@@ -26,8 +26,8 @@ public class Restaurant {
     private String address;
     private String phoneNumber;
     private String website;
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<User> users;
+    @OneToOne(mappedBy = "restaurant")
+    private User user;
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Recipe> recipes;
 }

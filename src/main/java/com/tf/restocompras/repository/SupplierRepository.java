@@ -9,5 +9,7 @@ public interface SupplierRepository extends JpaRepository<Supplier, Long> {
 
     Optional<Supplier> findById(Long id);
 
+    Optional<Supplier> findByUserId(Long userId);
+
 }
 

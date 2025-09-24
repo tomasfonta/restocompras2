@@ -63,7 +63,7 @@ public class RestaurantService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found with id " + userId));
 
-        restaurant.getUsers().add(user);
+        restaurant.setUser(user);
         user.setRestaurant(restaurant);
 
         return restaurantMapper.mapEntityToDto(restaurantRepository.save(restaurant));

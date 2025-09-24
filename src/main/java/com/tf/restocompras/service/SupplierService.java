@@ -35,6 +35,11 @@ public class SupplierService {
                 .orElseThrow(() -> new NotFoundException("Supplier not found with id " + id)));
     }
 
+    public SupplierResponseDto getSupplierByUserId(Long id) {
+        return supplierMapper.mapEntityToDto(supplierRepository.findByUserId(id)
+                .orElseThrow(() -> new NotFoundException("No Supplier found for the user with id " + id)));
+    }
+
     public SupplierResponseDto createSupplier(SupplierCreateRequestDto supplierCreateRequestDto) {
         Supplier supplier = supplierMapper.mapCreateDtoToEntity(supplierCreateRequestDto);
         return supplierMapper.mapEntityToDto(supplierRepository.save(supplier));
@@ -63,7 +68,7 @@ public class SupplierService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found with id " + userId));
 
-        supplier.getUsers().add(user);
+        supplier.setUser(user);
         user.setSupplier(supplier);
 
         return supplierMapper.mapEntityToDto(supplierRepository.save(supplier));

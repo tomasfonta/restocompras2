@@ -5,10 +5,10 @@ import com.tf.restocompras.model.item.ItemCreateRequestDto;
 import com.tf.restocompras.model.item.ItemResponseDto;
 import com.tf.restocompras.model.item.ItemUpdateRequestDto;
 import com.tf.restocompras.model.supplier.Supplier;
+import com.tf.restocompras.model.unit.Unit;
 import com.tf.restocompras.repository.ItemRepository;
 import com.tf.restocompras.repository.ProductRepository;
 import com.tf.restocompras.repository.SupplierRepository;
-import com.tf.restocompras.repository.UserRepository;
 import com.tf.restocompras.service.mapper.ItemMapper;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +22,14 @@ public class ItemService {
     private final ItemMapper itemMapper;
     private final ItemRepository itemRepository;
     private final ProductRepository productRepository;
-    private final UserRepository userRepository;
     private final SupplierRepository supplierRepository;
 
     public ItemService(ItemMapper itemMapper,
                        ItemRepository itemRepository,
-                       ProductRepository productRepository, UserRepository userRepository, SupplierRepository supplierRepository) {
+                       ProductRepository productRepository, SupplierRepository supplierRepository) {
         this.itemMapper = itemMapper;
         this.itemRepository = itemRepository;
         this.productRepository = productRepository;
-        this.userRepository = userRepository;
         this.supplierRepository = supplierRepository;
     }
 
@@ -66,9 +64,12 @@ public class ItemService {
                 .orElseThrow(() -> new NotFoundException("Product not found with id " + itemUpdateRequestDto.getProductId()));
         item.setProduct(product);
         item.setName(itemUpdateRequestDto.getName());
+        item.setBrand(itemUpdateRequestDto.getBrand());
         item.setPrice(itemUpdateRequestDto.getPrice());
         item.setDescription(itemUpdateRequestDto.getDescription());
         item.setImage(itemUpdateRequestDto.getImage());
+        item.setUnit(Unit.valueOf(itemUpdateRequestDto.getUnit()));
+        item.setQuantity(itemUpdateRequestDto.getQuantity());
 
         itemRepository.save(item);
         return itemMapper.mapEntityToDto(item);

@@ -10,6 +10,8 @@ public class ItemCreateRequestDto {
     @NotBlank
     private String name;
     @NotBlank
+    private String brand;
+    @NotBlank
     private String description;
     @NotNull
     private Double price;
@@ -19,4 +21,8 @@ public class ItemCreateRequestDto {
     private Long productId;
     @NotNull
     private Long supplierId;
+    @NotNull
+    private String unit;
+    @NotNull
+    private Double quantity;
 }

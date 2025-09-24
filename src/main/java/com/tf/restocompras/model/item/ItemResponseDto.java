@@ -11,10 +11,17 @@ public class ItemResponseDto {
     private Long id;
     @NotBlank
     private String name;
+    @NotBlank
+    private String brand;
+    @NotBlank
     private String description;
     private Double price;
     private String image;
     private Long productId;
     @NotNull
     private Long supplierId;
+    @NotNull
+    private String unit;
+    @NotNull
+    private Double quantity;
 }

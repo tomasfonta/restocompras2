@@ -19,10 +19,10 @@ public interface SupplierMapper {
     List<SupplierResponseDto> mapEntitiesToDtos(List<Supplier> suppliers);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "users", ignore = true)
+    @Mapping(target = "user", ignore = true)
     Supplier mapCreateDtoToEntity(SupplierCreateRequestDto supplierCreateRequestDto);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "users", ignore = true)
+    @Mapping(target = "user", ignore = true)
     void mapUpdateDtoToEntity(SupplierUpdateRequestDto supplierUpdateRequestDto, @MappingTarget Supplier supplier);
 }

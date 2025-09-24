@@ -8,12 +8,15 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueMappingStrategy;
 
-@Mapper(componentModel = "spring", nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+@Mapper(componentModel = "spring",
+        uses = SupplierMapper.class,
+        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
 public interface UserMapper {
 
     @Mapping(target = "name", source = "user.username")
     @Mapping(target = "applicationRoles", source = "user.role")
     @Mapping(target = "userBusinessType", source = "user.userBusinessType")
+    @Mapping(target = "supplier", source = "user.supplier")
     UserResponseDto mapEntityToDto(User user);
 
     @Mapping(target = "username", source = "dto.name")
@@ -22,4 +25,5 @@ public interface UserMapper {
     @Mapping(target = "username", source = "dto.name")
     @Mapping(target = "userBusinessType", source = "dto.userBusinessType")
     User mapDtoToEntity(UserCreateRequestDto dto);
+
 }
