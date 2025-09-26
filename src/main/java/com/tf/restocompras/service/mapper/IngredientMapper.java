@@ -12,13 +12,12 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface IngredientMapper {
 
-    @Mapping(target = "productId", source = "product.id")
     IngredientResponseDto mapEntityToDto(Ingredient ingredient);
 
     List<IngredientResponseDto> mapEntitiesToDtos(List<Ingredient> ingredients);
 
     @Mapping(target = "recipe.id", source = "recipeId")
-    @Mapping(target = "product", expression = "java(productFromId(ingredientCreateRequestDto.productId()))")
+    @Mapping(target = "product.id", source = "productId")
     Ingredient mapCreateDtoToEntity(IngredientCreateRequestDto ingredientCreateRequestDto);
 
     default Product productFromId(Long id) {

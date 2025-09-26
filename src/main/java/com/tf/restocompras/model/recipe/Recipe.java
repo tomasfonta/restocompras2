@@ -38,13 +38,12 @@ public class Recipe {
     private Integer monthlyServings;
     private Boolean isActive;
     private String instructions;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany
     private List<Ingredient> ingredients;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
-
 
 }

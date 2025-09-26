@@ -3,6 +3,7 @@ package com.tf.restocompras.model.ingredient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tf.restocompras.model.product.Product;
 import com.tf.restocompras.model.recipe.Recipe;
+import com.tf.restocompras.model.unit.Unit;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +25,6 @@ public class Ingredient {
     private Long id;
     private String name;
     private BigDecimal quantity;
-    private String dimension;
     private BigDecimal cost;
     private String supplier;
     @JsonIgnore
@@ -34,4 +34,5 @@ public class Ingredient {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
+    private Unit unit;
 }

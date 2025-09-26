@@ -1,5 +1,7 @@
 package com.tf.restocompras.model.item;
 
+import com.tf.restocompras.model.product.ProductResponseDto;
+import com.tf.restocompras.model.supplier.SupplierResponseDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -17,9 +19,9 @@ public class ItemResponseDto {
     private String description;
     private Double price;
     private String image;
-    private Long productId;
+    private ProductResponseDto product;
     @NotNull
-    private Long supplierId;
+    private SupplierResponseDto supplier;
     @NotNull
     private String unit;
     @NotNull

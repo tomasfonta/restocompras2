@@ -17,6 +17,7 @@ public interface UserMapper {
     @Mapping(target = "applicationRoles", source = "user.role")
     @Mapping(target = "userBusinessType", source = "user.userBusinessType")
     @Mapping(target = "supplier", source = "user.supplier")
+    @Mapping(target = "restaurant", source = "user.restaurant")
     UserResponseDto mapEntityToDto(User user);
 
     @Mapping(target = "username", source = "dto.name")

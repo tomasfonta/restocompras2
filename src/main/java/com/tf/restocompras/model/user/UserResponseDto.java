@@ -1,6 +1,7 @@
 package com.tf.restocompras.model.user;
 
 import com.tf.restocompras.config.security.ApplicationRoles;
+import com.tf.restocompras.model.restaurant.RestaurantResponseDto;
 import com.tf.restocompras.model.supplier.SupplierResponseDto;
 
 public record UserResponseDto(
@@ -9,6 +10,7 @@ public record UserResponseDto(
         String email,
         ApplicationRoles applicationRoles,
         UserBusinessType userBusinessType,
-        SupplierResponseDto supplier
+        SupplierResponseDto supplier,
+        RestaurantResponseDto restaurant
 ) {
 }
