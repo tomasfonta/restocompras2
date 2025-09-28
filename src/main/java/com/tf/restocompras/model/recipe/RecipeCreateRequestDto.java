@@ -12,6 +12,7 @@ public record RecipeCreateRequestDto(
         Integer monthlyServings,
         Integer cookingTimeInMinutes,
         Long restaurantId,
-        List<IngredientRequestDto> ingredients
+        List<IngredientRequestDto> ingredients,
+        Boolean isActive
 ) {
 }

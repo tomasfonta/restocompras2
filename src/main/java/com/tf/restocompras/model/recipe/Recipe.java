@@ -38,7 +38,8 @@ public class Recipe {
     private Integer monthlyServings;
     private Boolean isActive;
     private String instructions;
-    @OneToMany
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Ingredient> ingredients;
 
     @JsonIgnore

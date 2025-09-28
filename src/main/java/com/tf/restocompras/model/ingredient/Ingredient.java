@@ -25,14 +25,19 @@ public class Ingredient {
     private Long id;
     private String name;
     private BigDecimal quantity;
-    private BigDecimal cost;
+    private BigDecimal price;
     private String supplier;
+    private Unit unit;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
-    private Unit unit;
+
+
 }

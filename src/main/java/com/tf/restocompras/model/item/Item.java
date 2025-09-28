@@ -30,15 +30,17 @@ public class Item {
     private String description;
     private Double price;
     private String image;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
     @NotNull
     private Unit unit;
     @NotNull
     private Double quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 
 }

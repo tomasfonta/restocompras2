@@ -5,7 +5,8 @@ public record IngredientResponseDto(
         String name,
         Double quantity,
         String unit,
-        Double cost,
-        Long recipeId
+        Double price,
+        Long recipeId,
+        Long productId
 ) {
 }

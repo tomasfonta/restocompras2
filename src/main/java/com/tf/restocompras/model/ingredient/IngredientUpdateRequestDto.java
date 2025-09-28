@@ -5,13 +5,14 @@ import lombok.Builder;
 import java.math.BigDecimal;
 
 @Builder
-public record IngredientRequestDto(
+public record IngredientUpdateRequestDto(
         Long id,
         String name,
         BigDecimal quantity,
         String unit,
         BigDecimal price,
         String supplier,
-        Long productId
+        Long productId,
+        Long recipeId
 ) {
 }
