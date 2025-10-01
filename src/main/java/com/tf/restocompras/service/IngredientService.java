@@ -73,4 +73,14 @@ public class IngredientService {
         }
         ingredientRepository.deleteById(id);
     }
+
+//    public Ingredient findCheapestByProductId(Long productId) {
+//
+//        return ingredientRepository.findByProduct(productId)
+//                .orElseThrow( public Ingredient findCheapestByProductId(Long productId) {
+////
+////        return ingredientRepository.findByProduct(productId)
+////                .orElseThrow(() -> new NotFoundException("No ingredients found for product id " + productId));
+////    }() -> new NotFoundException("No ingredients found for product id " + productId));
+//    }
 }

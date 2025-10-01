@@ -52,7 +52,8 @@ public class SpringSecurityConfig {
                                         "/api/restaurants/**",
                                         "/api/suppliers/**",
                                         "/api/users/**",
-                                        "/api/units/**"
+                                        "/api/units/**",
+                                        "/api/analysis/**"
                                 ).authenticated()
                 );
         http.addFilter(jwtUserAuthenticationFilter);

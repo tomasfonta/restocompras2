@@ -86,7 +86,7 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (JwtException e) {
-            throw new UserAuthenticationFail(String.format("Token not valid"));
+            throw new UserAuthenticationFail("Token not valid");
         }
 
         filterChain.doFilter(request, response);

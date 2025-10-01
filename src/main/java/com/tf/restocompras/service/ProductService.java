@@ -10,7 +10,6 @@ import com.tf.restocompras.service.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -37,8 +36,8 @@ public class ProductService {
 
         Product product = productMapper.mapDtoToEntity(productCreateRequestDto);
 
-        product.setCategory(  categoryRepository.getById(productCreateRequestDto.categoryId())
-        .orElseThrow(() -> new NotFoundException("Category not found with id " + productCreateRequestDto.categoryId())));
+        product.setCategory(categoryRepository.getById(productCreateRequestDto.categoryId())
+                .orElseThrow(() -> new NotFoundException("Category not found with id " + productCreateRequestDto.categoryId())));
         Product productSaved = productRepository.save(product);
 
         return productMapper.mapEntityToDto(productSaved);
@@ -47,4 +46,5 @@ public class ProductService {
     public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
+
 }

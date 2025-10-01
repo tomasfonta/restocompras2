@@ -7,15 +7,12 @@ import com.tf.restocompras.model.category.CategoryResponseDto;
 import com.tf.restocompras.model.category.CategoryUpdateRequestDto;
 import com.tf.restocompras.repository.CategoryRepository;
 import com.tf.restocompras.service.mapper.CategoryMapper;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
