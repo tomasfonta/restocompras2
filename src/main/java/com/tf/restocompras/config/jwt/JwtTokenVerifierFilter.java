@@ -2,7 +2,6 @@ package com.tf.restocompras.config.jwt;
 
 
 import com.tf.restocompras.config.security.JwtConfig;
-import com.tf.restocompras.error.UserAuthenticationFail;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -12,6 +11,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,11 +20,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 public class JwtTokenVerifierFilter extends OncePerRequestFilter {
 
     private final JwtConfig jwtConfig;
@@ -55,26 +57,30 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
 
         String authorizationHeader = request.getHeader("Authorization");
 
-        if (authorizationHeader.isBlank() || !authorizationHeader.startsWith("Bearer ")) {
+        // Null-safe, quiet skip when no bearer token present
+        if (authorizationHeader == null || authorizationHeader.isBlank() || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            String token = authorizationHeader.replace("Bearer ", "");
+            String token = authorizationHeader.substring("Bearer ".length());
             String secretKey = jwtConfig.getSecretKey();
 
+            var key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+
             Jws<Claims> claimsJws = Jwts.parser()
-                    .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
+                    .verifyWith(key)
                     .build()
                     .parseSignedClaims(token);
 
             Claims body = claimsJws.getBody();
             String userName = body.getSubject();
 
+            @SuppressWarnings("unchecked")
             List<Map<String, String>> authorities = (List<Map<String, String>>) body.get("authorities");
 
-            List<SimpleGrantedAuthority> grantedAuthorities = authorities.stream()
+            List<SimpleGrantedAuthority> grantedAuthorities = authorities == null ? List.of() : authorities.stream()
                     .map(m -> new SimpleGrantedAuthority(m.get("authority")))
                     .collect(Collectors.toList());
 
@@ -85,11 +91,15 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        } catch (JwtException e) {
-            throw new UserAuthenticationFail("Token not valid");
+            filterChain.doFilter(request, response);
+            return;
+        } catch (JwtException | IllegalArgumentException e) {
+            // Encapsulate logs: concise message, no noisy stack traces in logs
+            log.debug("JWT verification failed: {}", e.getMessage());
+            SecurityContextHolder.clearContext();
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
-
-        filterChain.doFilter(request, response);
     }
 
 
