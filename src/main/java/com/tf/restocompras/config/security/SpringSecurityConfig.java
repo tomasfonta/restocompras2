@@ -41,7 +41,8 @@ public class SpringSecurityConfig {
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/swagger-ui.html",
-                                        "/webjars/**"
+                                        "/webjars/**",
+                                        "/engineering/ping"
                                 ).permitAll()
                                 .requestMatchers(
                                         "/api/categories/**",
