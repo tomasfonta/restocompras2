@@ -26,16 +26,14 @@ public class RecipeService {
     private final IngredientRepository ingredientRepository;
     private final RecipeMapper recipeMapper;
     private final ProductRepository productRepository;
-    private final IngredientService ingredientService;
 
     public RecipeService(RecipeRepository recipeRepository,
                          IngredientRepository ingredientRepository,
-                         RecipeMapper recipeMapper, ProductRepository productRepository, IngredientService ingredientService) {
+                         RecipeMapper recipeMapper, ProductRepository productRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.recipeMapper = recipeMapper;
         this.productRepository = productRepository;
-        this.ingredientService = ingredientService;
     }
 
     public List<RecipeResponseDto> findAll() {
@@ -70,7 +68,6 @@ public class RecipeService {
                             .orElseThrow(() -> new NotFoundException("Product not found with id " + ingredientDto.productId()));
                     newIngredient.setProduct(product);
                 }
-
 
                 ingredients.add(newIngredient);
             }

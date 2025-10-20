@@ -4,20 +4,14 @@ import com.tf.restocompras.model.category.Category;
 import com.tf.restocompras.model.category.CategoryCreateRequestDto;
 import com.tf.restocompras.model.category.CategoryResponseDto;
 import com.tf.restocompras.model.category.CategoryUpdateRequestDto;
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.NullValueMappingStrategy;
 
-@Mapper(componentModel = "spring",
-        uses = {ItemMapper.class, ProductMapper.class})
+@Mapper(componentModel = "spring", uses = {SubCategoryLevel1Mapper.class})
 public interface CategoryMapper {
-
 
     Category mapDtoToEntity(CategoryUpdateRequestDto categoryUpdateRequestDto);
 
-    @IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
-    CategoryResponseDto mapEntityToDto(Category category);
-
+    CategoryResponseDto mapEntityToDto(Category parentCategory);
 
     Category mapDtoToEntity(CategoryCreateRequestDto categoryCreateRequestDto);
 }

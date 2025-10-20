@@ -20,7 +20,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        String message = ex.getMostSpecificCause() != null ? ex.getMostSpecificCause().getMessage() : ex.getMessage();
+        ex.getMostSpecificCause();
+        String message = ex.getMostSpecificCause().getMessage();
         log.error("DataIntegrityViolationException: {}", message);
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Data integrity error: " + message);
     }

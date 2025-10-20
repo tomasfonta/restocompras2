@@ -2,6 +2,7 @@ package com.tf.restocompras.model.product;
 
 public record ProductCreateRequestDto(
         String name,
-        Long categoryId
-) {}
+        Long subCategoryLevel2Id
+) {
+}
 

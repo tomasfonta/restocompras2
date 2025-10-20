@@ -32,23 +32,23 @@ public class CategoryService {
 
     public CategoryResponseDto getCategoryById(Long id) {
 
-        Category category = categoryRepository.findById(id)
+        Category parentCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Category : " + id + " not found"));
 
-        return categoryMapper.mapEntityToDto(category);
+        return categoryMapper.mapEntityToDto(parentCategory);
 
     }
 
     public CategoryResponseDto updateCategory(CategoryUpdateRequestDto categoryUpdateRequestDto) {
         categoryRepository.findById(categoryUpdateRequestDto.id())
                 .orElseThrow(() -> new NotFoundException("Category : " + categoryUpdateRequestDto.id() + " not found"));
-        Category category = categoryRepository.save(categoryMapper.mapDtoToEntity(categoryUpdateRequestDto));
-        return categoryMapper.mapEntityToDto(category);
+        Category parentCategory = categoryRepository.save(categoryMapper.mapDtoToEntity(categoryUpdateRequestDto));
+        return categoryMapper.mapEntityToDto(parentCategory);
     }
 
     public CategoryResponseDto createCategory(CategoryCreateRequestDto categoryCreateRequestDto) {
-        Category category = categoryRepository.save(categoryMapper.mapDtoToEntity(categoryCreateRequestDto));
-        return categoryMapper.mapEntityToDto(category);
+        Category parentCategory = categoryRepository.save(categoryMapper.mapDtoToEntity(categoryCreateRequestDto));
+        return categoryMapper.mapEntityToDto(parentCategory);
     }
 
     public void deleteCategory(Long id) {

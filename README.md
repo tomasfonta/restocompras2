@@ -11,15 +11,6 @@ Postman Collection:
 You can import the Postman collection from the following
 file: [Postman Collection](docs/restocompras.postman_collection.json)
 
-User:
-Role: ADMIN
-email: admin@gmail.com
-password: password
-
-Role: USER
-email: user@gmail.com   
-password: password
-
 POST -> /login
 body:
 {

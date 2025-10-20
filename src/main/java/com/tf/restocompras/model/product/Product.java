@@ -2,7 +2,7 @@ package com.tf.restocompras.model.product;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.tf.restocompras.model.category.Category;
+import com.tf.restocompras.model.category.SubCategoryLevel2;
 import com.tf.restocompras.model.ingredient.Ingredient;
 import com.tf.restocompras.model.item.Item;
 import jakarta.persistence.*;
@@ -11,7 +11,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "product")
 @Getter
 @Setter
 @Builder
@@ -31,7 +31,7 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Item> items;
 
-    @ManyToOne()
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @ManyToOne
+    @JoinColumn(name = "sub_category_level2_id", nullable = false)
+    private SubCategoryLevel2 subCategoryLevel2;
 }

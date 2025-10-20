@@ -4,8 +4,8 @@ import com.tf.restocompras.error.NotFoundException;
 import com.tf.restocompras.model.product.Product;
 import com.tf.restocompras.model.product.ProductCreateRequestDto;
 import com.tf.restocompras.model.product.ProductResponseDto;
-import com.tf.restocompras.repository.CategoryRepository;
 import com.tf.restocompras.repository.ProductRepository;
+import com.tf.restocompras.repository.SubCategoryLevel2Repository;
 import com.tf.restocompras.service.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
-    private final CategoryRepository categoryRepository;
+    private final SubCategoryLevel2Repository subCategoryLevel2Repository;
 
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper, CategoryRepository categoryRepository) {
+    public ProductService(ProductRepository productRepository, ProductMapper productMapper, SubCategoryLevel2Repository subCategoryLevel2Repository) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
-        this.categoryRepository = categoryRepository;
+        this.subCategoryLevel2Repository = subCategoryLevel2Repository;
     }
 
     public List<ProductResponseDto> findAll() {
@@ -36,8 +36,8 @@ public class ProductService {
 
         Product product = productMapper.mapDtoToEntity(productCreateRequestDto);
 
-        product.setCategory(categoryRepository.getById(productCreateRequestDto.categoryId())
-                .orElseThrow(() -> new NotFoundException("Category not found with id " + productCreateRequestDto.categoryId())));
+        product.setSubCategoryLevel2(subCategoryLevel2Repository.getById(productCreateRequestDto.subCategoryLevel2Id())
+                .orElseThrow(() -> new NotFoundException("Category not found with id " + productCreateRequestDto.subCategoryLevel2Id())));
         Product productSaved = productRepository.save(product);
 
         return productMapper.mapEntityToDto(productSaved);
