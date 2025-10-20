@@ -14,16 +14,78 @@
 					"name": "create restaurant",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"string\",\n  \"mail\": \"string\",\n  \"address\": \"string\",\n  \"phoneNumber\": \"string\",\n  \"website\": \"string\"\n}",
+							"raw": "{\n  \"name\": \"McDonalds\",\n  \"mail\": \"string\",\n  \"address\": \"string\",\n  \"phoneNumber\": \"string\",\n  \"website\": \"string\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
+						"url": {
+							"raw": "{{host}}/api/restaurants",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add user to restaurants",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/restaurants/3/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"restaurants",
+								"3",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All restaurants",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:8080/api/restaurants",
 							"protocol": "http",
@@ -38,29 +100,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "add user to restaurants",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/restaurants/1/users/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"restaurants",
-								"1",
-								"users",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -68,16 +107,116 @@
 			"name": "Recipe",
 			"item": [
 				{
+					"name": "delete recipe",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/recipes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"recipes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get all recipes",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Parrilla Alfonsina\",\n  \"email\": \"restaurant@email.com\",\n  \"password\": \"password\"\n}"
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/recipes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all recipes by restaurant id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/recipes/restaurant/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"recipes",
+								"restaurant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create recipe",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 8,\n    \"name\": \"Pizza Napolitana\",\n    \"description\": \"Pizza con queso mozzarela, roque, sardo y fontina\",\n    \"instructions\": \"Preparar con ...... amor\",\n    \"monthlyServings\": 123,\n    \"price\": 120.22,\n    \"restaurantId\": {{restaurantId}},\n    \"cookingTimeInMinutes\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/recipes",
@@ -98,10 +237,16 @@
 					"name": "create recipe",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Pizza Cuatro Quesos\",\n  \"description\": \"Pizza con queso mozzarela, roque, sardo y fontina\",\n  \"instructions\": \"Preparar con ......\",\n  \"preparationTime\": 10,\n  \"servings\": 123,\n  \"price\" : 12000.22,\n  \"restaurantId\": {{restaurantId}}\n}",
+							"raw": "{\n    \"name\": \"Pizza Cuatro Quesos\",\n    \"description\": \"Pizza con queso mozzarela, roque, sardo y fontina\",\n     \"price\": 12000.22,\n    \"instructions\": \"Preparar con ......\",\n     \"monthlyServings\": 123,\n    \"cookingTimeInMinutes\": 10,   \n    \"restaurantId\": {{restaurantId}},\n    \"isActive\": true,\n    \"ingredients\": [{\n        \"id\" : null,\n        \"name\": \"Tomate\",\n        \"quantity\": 1,\n        \"unit\": \"UNIT\",\n        \"price\": 10,\n        \"supplier\" : \"not implemented\",\n        \"productId\": 1\n    }\n    ] \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -109,12 +254,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/recipes",
-							"protocol": "http",
+							"raw": "{{host}}/api/recipes",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"recipes"
@@ -132,14 +275,18 @@
 					"name": "get products",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/api/products",
-							"protocol": "http",
+							"raw": "{{host}}/api/products",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products"
@@ -152,10 +299,16 @@
 					"name": "create Product",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Carne\",\n  \"categoryId\" : 1\n}",
+							"raw": "{\n  \"name\": \"Pan de Miga\",\n  \"categoryId\" : 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -163,12 +316,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products",
-							"protocol": "http",
+							"raw": "{{host}}/api/products",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products"
@@ -186,14 +337,18 @@
 					"name": "get items",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/api/item",
-							"protocol": "http",
+							"raw": "{{host}}/api/item",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"item"
@@ -225,13 +380,54 @@
 					"response": []
 				},
 				{
+					"name": "update item",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\n//   \"name\": \"Leche La Serenisima 1L Descremada\",\n//   \"description\": \"leche de 1l descremada\",\n//   \"price\": 1200,\n//   \"image\": \"string\",\n//   \"productId\": {{lecheId}},\n//   \"supplierId\": {{restaurantId}}\n// }\n\n{\n  \"id\": 16,\n  \"name\": \"Schweppes Agua Tónica\",\n  \"description\": \"Agua Tónica 1L\",\n  \"price\": 4000,\n  \"image\": \"https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTAm7zHVyhzmZIvnInNIQ5RnQdDzKZdSQyMFunXrWDLKMsOB8adbuIXBlTbH8Q-eoy8IiRf-S1oii3MyWQ2dcl4TYUGbs6dWXoSXJ5TrS3B2jZj6KuTU-cM\",\n  \"productId\": 1,\n  \"supplierId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/item",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "create item",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Leche La Serenisima 1L Descremada\",\n  \"description\": \"leche de 1l descremada\",\n  \"price\": 1200,\n  \"image\": \"string\",\n  \"productId\": {{lecheId}},\n  \"suppplierId\": {{restaurantId}}\n}",
+							"raw": "{\n  \"name\": \"Leche La Serenisima 1L Descremada\",\n  \"description\": \"leche de 1l descremada\",\n  \"price\": 1200,\n  \"image\": \"string\",\n  \"productId\": {{lecheId}},\n  \"supplierId\": {{restaurantId}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -257,9 +453,15 @@
 					"name": "Delete Item",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/api/item/1",
+							"raw": "http://localhost:8080/api/ingredients/8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -267,8 +469,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"item",
-								"1"
+								"ingredients",
+								"8"
 							]
 						}
 					},
@@ -298,7 +500,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Parrilla Alfonsina\",\n  \"email\": \"restaurant@email.com\",\n  \"password\": \"password\"\n}",
@@ -309,12 +517,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
+							"raw": "{{host}}/api/users",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"users"
@@ -342,7 +548,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"string\",\n  \"mail\": \"email@gmail.com\",\n  \"address\": \"string\",\n  \"phoneNumber\": \"string\",\n  \"website\": \"string\",\n  \"rating\": 0,\n  \"deliveryTime\": \"string\"\n}",
@@ -353,12 +565,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/suppliers",
-							"protocol": "http",
+							"raw": "{{host}}/api/suppliers",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"suppliers"
@@ -397,12 +607,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/restaurants",
-							"protocol": "http",
+							"raw": "{{host}}/api/restaurants",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"restaurants"
@@ -417,12 +625,10 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/suppliers/{{supplierId}}/users/{{userId}}",
-							"protocol": "http",
+							"raw": "{{host}}/api/suppliers/{{supplierId}}/users/{{userId}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"suppliers",
@@ -440,12 +646,10 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/restaurants/{{restaurantId}}/users/{{userId}}",
-							"protocol": "http",
+							"raw": "{{host}}/api/restaurants/{{restaurantId}}/users/{{userId}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"restaurants",
@@ -487,12 +691,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/categories",
-							"protocol": "http",
+							"raw": "{{host}}/api/categories",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"categories"
@@ -531,12 +733,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products",
-							"protocol": "http",
+							"raw": "{{host}}/api/products",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products"
@@ -575,12 +775,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products",
-							"protocol": "http",
+							"raw": "{{host}}/api/products",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products"
@@ -619,12 +817,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products",
-							"protocol": "http",
+							"raw": "{{host}}/api/products",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products"
@@ -648,12 +844,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/item",
-							"protocol": "http",
+							"raw": "{{host}}/api/item",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"item"
@@ -677,12 +871,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/item",
-							"protocol": "http",
+							"raw": "{{host}}/api/item",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"item"
@@ -721,12 +913,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/recipes",
-							"protocol": "http",
+							"raw": "{{host}}/api/recipes",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"recipes"
@@ -750,12 +940,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/ingredients",
-							"protocol": "http",
+							"raw": "{{host}}/api/ingredients",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"ingredients"
@@ -776,7 +964,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Pizza Cuatro Quesos\",\n  \"description\": \"Pizza con queso mozzarela, roque, sardo y fontina\",\n  \"instructions\": \"Preparar con ......\",\n  \"preparationTime\": 10,\n  \"servings\": 123,\n  \"price\" : 12000.22,\n  \"restaurantId\": {{restaurantId}}\n}"
@@ -800,10 +994,16 @@
 					"name": "create ingredient",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Queso Mozzarella\",\n  \"description\" : \"Queso Mozzarella Lorep Ipsum\",\n  \"quantity\": 200,\n  \"dimension\": \"g\",\n  \"cost\": 2500,\n  \"supplier\": \"Mi propio proveedor\",\n  \"productId\": {{quesoId}},\n  \"recipeId\": {{recipeId}}\n}",
+							"raw": "{\n  \"name\": \"Queso Mozzarella\",\n    \"quantity\": 200,\n  \"unit\": \"G\",\n  \"price\": 2500,\n  \"supplier\": \"Mi propio proveedor\",\n  \"productId\": {{quesoId}},\n   \"recipeId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -811,7 +1011,31 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/ingredients",
+							"raw": "{{host}}/api/ingredients",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ingredient",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/ingredients/24",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -819,7 +1043,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"ingredients"
+								"ingredients",
+								"24"
 							]
 						}
 					},
@@ -834,14 +1059,18 @@
 					"name": "get categories",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/api/categories",
-							"protocol": "http",
+							"raw": "{{host}}/api/categories",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"categories"
@@ -854,7 +1083,13 @@
 					"name": "create category",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Lacteos\"\n}",
@@ -865,12 +1100,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/categories",
-							"protocol": "http",
+							"raw": "{{host}}/api/categories",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"categories"
@@ -903,23 +1136,178 @@
 			]
 		},
 		{
+			"name": "Sub Categories Level 1",
+			"item": [
+				{
+					"name": "get subcategories-level1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/subcategories-level1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"subcategories-level1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Panadería\",\n  \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/subcategories-level1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"subcategories-level1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sub Categories Level 2",
+			"item": [
+				{
+					"name": "get subcategories-level2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/subcategories-level2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"subcategories-level2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create sub category level 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Panificados\",\n  \"subCategoryLevel1Id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/subcategories-level2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"subcategories-level2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Supplier",
 			"item": [
 				{
 					"name": "get all suppliers",
 					"request": {
-						"method": "GET",
-						"header": [],
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/api/suppliers",
-							"protocol": "http",
+							"raw": "{{host}}/api/suppliers/1/users/1",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"suppliers"
+								"suppliers",
+								"1",
+								"users",
+								"1"
 							]
 						}
 					},
@@ -955,17 +1343,56 @@
 					"response": []
 				},
 				{
-					"name": "add user to supplier Copy",
+					"name": "update Supplier",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"string\",\n    \"mail\": \"email@gmail.com\",\n    \"address\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"website\": \"string\",\n    \"rating\": 1,\n    \"deliveryTime\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/api/suppliers/1/users/1",
+							"raw": "http://localhost:8080/api/suppliers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
+							"path": [
+								"api",
+								"suppliers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add user to supplier",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/suppliers/1/users/1",
+							"host": [
+								"{{host}}"
+							],
 							"path": [
 								"api",
 								"suppliers",
@@ -983,17 +1410,24 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "get users",
+					"name": "get all users",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
+							"raw": "{{host}}/api/users",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"users"
@@ -1009,7 +1443,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Parrilla Alfonsina\",\n  \"email\": \"restaurant@email.com\",\n  \"password\": \"password\"\n}",
+							"raw": "{\n  \"name\": \"restaurante\",\n  \"email\": \"restaurante@email.com\",\n  \"password\": \"123123\",\n  \"userBusinessType\"  : \"RESTAURANT\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1017,12 +1451,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users",
-							"protocol": "http",
+							"raw": "{{host}}/api/users",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"users"
@@ -1047,6 +1479,202 @@
 								"api",
 								"users",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.headers;",
+									"",
+									"pm.environment.set(\"jwt\", responseData.find( x => x.key === \"Authorization\").value );",
+									"",
+									"",
+									"console.log(pm.environment.get(\"jwt\"))",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"restaurante@email.com\",\n    \"password\": \"123123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Unit",
+			"item": [
+				{
+					"name": "get units",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/units",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"units"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get units",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/units",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"units"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analysis",
+			"item": [
+				{
+					"name": "analysis",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/analysis/restaurant/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"analysis",
+								"restaurant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Engineering",
+			"item": [
+				{
+					"name": "ping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/engineering/ping",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"engineering",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Excel",
+			"item": [
+				{
+					"name": "Log",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": " file",
+									"type": "file",
+									"src": "/Users/tomasfontanarrosa/Downloads/TestCargaProductos.xlsx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/excel/log",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"excel",
+								"log"
 							]
 						}
 					},
