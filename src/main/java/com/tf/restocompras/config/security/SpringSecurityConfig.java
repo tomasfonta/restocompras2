@@ -57,7 +57,7 @@ public class SpringSecurityConfig {
                                         "/api/analysis/**",
                                         "/api/subcategories-level1/**",
                                         "/api/subcategories-level2/**",
-                                        "/excel/**"
+                                        "/api/excel/**"
                                 ).authenticated()
                 );
         http.addFilter(jwtUserAuthenticationFilter);

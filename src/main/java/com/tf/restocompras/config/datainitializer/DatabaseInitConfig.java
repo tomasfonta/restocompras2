@@ -23,6 +23,7 @@ public class DatabaseInitConfig {
     }
 
     @Bean
+    @org.springframework.core.annotation.Order(0)
     public CommandLineRunner runDbInitScript(
             @Value("${app.db.init.enabled:true}") boolean enabled,
             @Value("${app.db.init.script:db/init-categories.sql}") String scriptPath
