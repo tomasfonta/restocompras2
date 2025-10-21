@@ -20,3 +20,15 @@ body:
 
 Authentication:
 JWT (JSON Web Token) is used for authentication.
+
+Usuarios por defecto:
+
+Tipo Restaurante:
+
+- email: restaurante@test.com
+- password: 123123
+
+Tipo Proveedor:
+
+- email: proveedor@test.com
+- password: 123123
