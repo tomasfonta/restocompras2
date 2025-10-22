@@ -166,7 +166,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Create initial item: Coca Cola 1L
         if (itemRepository.findById(1L).isEmpty()) {
-            Product product = productRepository.findByName("Coca-Cola Clásica").orElseThrow();
+            Product product = productRepository.findFirstByName("Coca-Cola Clásica").orElse(null);
 
             Item cocaCola = Item.builder()
                     .name("Coca Cola 1L")
@@ -188,7 +188,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Create second item: Pepsi Común 1L
         if (itemRepository.findById(2L).isEmpty()) {
-            Product pepsiProduct = productRepository.findByName("Pepsi Clásica").orElseThrow();
+            Product pepsiProduct = productRepository.findFirstByName("Pepsi Clásica").orElse(null);
 
             Item pepsiComun = Item.builder()
                     .name("Pepsi Común 1L")
@@ -210,7 +210,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Create third item: Fanta Naranja 1L
         if (itemRepository.findById(3L).isEmpty()) {
-            Product fantaProduct = productRepository.findByName("Fanta").orElse(null);
+            Product fantaProduct = productRepository.findFirstByName("Fanta").orElse(null);
 
             Item fanta = Item.builder()
                     .name("Fanta Naranja 1L")
@@ -234,7 +234,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 4: Lomo de res premium
         if (itemRepository.findById(4L).isEmpty()) {
-            Product beefProduct = productRepository.findByName("Lomo").orElse(null);
+            Product beefProduct = productRepository.findFirstByName("Lomo").orElse(null);
 
             Item lomoRes = Item.builder()
                     .name("Lomo de res premium")
@@ -254,7 +254,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 5: Masa de hojaldre
         if (itemRepository.findById(5L).isEmpty()) {
-            Product puffPastryProduct = productRepository.findByName("Masa de Hojaldre").orElse(null);
+            Product puffPastryProduct = productRepository.findFirstByName("Masa de Hojaldre").orElse(null);
 
             Item masaHojaldre = Item.builder()
                     .name("Masa de hojaldre")
@@ -274,7 +274,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 6: Champiñones
         if (itemRepository.findById(6L).isEmpty()) {
-            Product mushroomsProduct = productRepository.findByName("Champiñones").orElse(null);
+            Product mushroomsProduct = productRepository.findFirstByName("Champiñones").orElse(null);
 
             Item champinones = Item.builder()
                     .name("Champiñones frescos")
@@ -294,7 +294,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 7: Paté de hígado de pato
         if (itemRepository.findById(7L).isEmpty()) {
-            Product pateProduct = productRepository.findByName("Paté de Foie").orElse(null);
+            Product pateProduct = productRepository.findFirstByName("Paté de Foie").orElse(null);
 
             Item pate = Item.builder()
                     .name("Paté de hígado de pato")
@@ -314,7 +314,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 8: Jamón Crudo
         if (itemRepository.findById(8L).isEmpty()) {
-            Product prosciuttoProduct = productRepository.findByName("Jamón Crudo").orElse(null);
+            Product prosciuttoProduct = productRepository.findFirstByName("Jamón Crudo").orElse(null);
 
             Item jamonCrudo = Item.builder()
                     .name("Jamón Crudo en lonchas")
@@ -334,7 +334,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 9: Mostaza Dijon
         if (itemRepository.findById(9L).isEmpty()) {
-            Product mustardProduct = productRepository.findByName("Mostaza Dijon").orElse(null);
+            Product mustardProduct = productRepository.findFirstByName("Mostaza Dijon").orElse(null);
 
             Item mostazaDijon = Item.builder()
                     .name("Mostaza Dijon")
@@ -356,7 +356,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 10: Harina para Pizza
         if (itemRepository.findById(10L).isEmpty()) {
-            Product harinaProduct = productRepository.findByName("Harina para Pizza").orElse(null);
+            Product harinaProduct = productRepository.findFirstByName("Harina para Pizza").orElse(null);
 
             Item harina = Item.builder()
                     .name("Harina para Pizza")
@@ -376,7 +376,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 11: Salsa Napolitana
         if (itemRepository.findById(11L).isEmpty()) {
-            Product salsaProduct = productRepository.findByName("Salsa Napolitana").orElse(null);
+            Product salsaProduct = productRepository.findFirstByName("Salsa Napolitana").orElse(null);
 
             Item salsa = Item.builder()
                     .name("Salsa Napolitana")
@@ -396,7 +396,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 12: Queso Mozzarella
         if (itemRepository.findById(12L).isEmpty()) {
-            Product mozzarellaProduct = productRepository.findByName("Queso Mozzarella").orElse(null);
+            Product mozzarellaProduct = productRepository.findFirstByName("Queso Mozzarella").orElse(null);
 
             Item mozzarella = Item.builder()
                     .name("Queso Mozzarella")
@@ -416,7 +416,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 13: Aceite de Oliva
         if (itemRepository.findById(13L).isEmpty()) {
-            Product aceiteProduct = productRepository.findByName("Aceite de Oliva Extra Virgen").orElse(null);
+            Product aceiteProduct = productRepository.findFirstByName("Aceite de Oliva Extra Virgen").orElse(null);
 
             Item aceite = Item.builder()
                     .name("Aceite de Oliva Extra Virgen")
@@ -436,7 +436,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 14: Albahaca
         if (itemRepository.findById(14L).isEmpty()) {
-            Product albahacaProduct = productRepository.findByName("Albahaca").orElse(null);
+            Product albahacaProduct = productRepository.findFirstByName("Albahaca").orElse(null);
 
             Item albahaca = Item.builder()
                     .name("Albahaca Fresca")
@@ -456,7 +456,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 15: Carne Picada Especial
         if (itemRepository.findById(15L).isEmpty()) {
-            Product carnePicadaProduct = productRepository.findByName("Carne Picada Especial").orElse(null);
+            Product carnePicadaProduct = productRepository.findFirstByName("Carne Picada Especial").orElse(null);
 
             Item carnePicada = Item.builder()
                     .name("Carne Picada Especial")
@@ -476,7 +476,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 16: Pan de Hamburguesa
         if (itemRepository.findById(16L).isEmpty()) {
-            Product panHamburguesaProduct = productRepository.findByName("Pan de Hamburguesa").orElse(null);
+            Product panHamburguesaProduct = productRepository.findFirstByName("Pan de Hamburguesa").orElse(null);
 
             Item panHamburguesa = Item.builder()
                     .name("Pan de Hamburguesa")
