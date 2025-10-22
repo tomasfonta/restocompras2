@@ -210,7 +210,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Create third item: Fanta Naranja 1L
         if (itemRepository.findById(3L).isEmpty()) {
-            Product fantaProduct = productRepository.findByName("Fanta Naranja").orElse(null);
+            Product fantaProduct = productRepository.findByName("Fanta").orElse(null);
 
             Item fanta = Item.builder()
                     .name("Fanta Naranja 1L")
@@ -234,7 +234,7 @@ public class UserDataInitializer implements CommandLineRunner {
 
         // Item 4: Lomo de res premium
         if (itemRepository.findById(4L).isEmpty()) {
-            Product beefProduct = productRepository.findById(1L).orElse(null);
+            Product beefProduct = productRepository.findByName("Lomo").orElse(null);
 
             Item lomoRes = Item.builder()
                     .name("Lomo de res premium")

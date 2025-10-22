@@ -46,6 +46,7 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
                 || path.equals("/favicon.ico")
                 || path.startsWith("/error")
                 || path.startsWith("/.well-known")
+                || path.startsWith("/engineering")
                 || ((path.equals("/api/users")
                 && request.getMethod().equals("POST")));
     }
