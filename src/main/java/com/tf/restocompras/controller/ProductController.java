@@ -1,8 +1,10 @@
 package com.tf.restocompras.controller;
 
 import com.tf.restocompras.model.product.ProductCreateRequestDto;
+import com.tf.restocompras.model.product.ProductMatchResponseDto;
 import com.tf.restocompras.model.product.ProductResponseDto;
 import com.tf.restocompras.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +40,13 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search/best-match")
+    @Operation(summary = "Find best matching product",
+            description = "Searches for the best matching product based on name or description, considering category hierarchy")
+    public ResponseEntity<ProductMatchResponseDto> findBestMatch(@RequestParam String query) {
+        return ResponseEntity.ok(productService.findBestMatch(query));
     }
 }
 
