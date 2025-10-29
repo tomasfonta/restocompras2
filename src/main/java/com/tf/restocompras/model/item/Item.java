@@ -1,6 +1,7 @@
 package com.tf.restocompras.model.item;
 
 
+import com.tf.restocompras.model.bundle.Bundle;
 import com.tf.restocompras.model.product.Product;
 import com.tf.restocompras.model.supplier.Supplier;
 import com.tf.restocompras.model.unit.Unit;
@@ -8,6 +9,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "items")
@@ -42,5 +45,8 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bundle> bundles;
 
 }
