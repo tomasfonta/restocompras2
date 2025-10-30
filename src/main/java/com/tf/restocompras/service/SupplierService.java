@@ -73,4 +73,9 @@ public class SupplierService {
 
         return supplierMapper.mapEntityToDto(supplierRepository.save(supplier));
     }
+
+    public List<SupplierResponseDto> searchSuppliers(String email) {
+        List<Supplier> suppliers = supplierRepository.findByEmailContaining(email);
+        return supplierMapper.mapEntitiesToDtos(suppliers);
+    }
 }

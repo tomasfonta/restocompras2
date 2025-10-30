@@ -61,6 +61,13 @@ public class SupplierController {
         return ResponseEntity.ok(supplierService.addUserToSupplier(supplierId, userId));
     }
 
+    @Operation(summary = "Search suppliers by email", description = "Find suppliers by email address")
+    @GetMapping("/search")
+    public ResponseEntity<List<SupplierResponseDto>> searchSuppliers(
+            @RequestParam String email) {
+        return ResponseEntity.ok(supplierService.searchSuppliers(email));
+    }
+
     @Operation(summary = "Get Supplier with userId")
     @GetMapping("/{supplierId}/users/{userId}")
     public ResponseEntity<SupplierResponseDto> getSupplierWithUserId(

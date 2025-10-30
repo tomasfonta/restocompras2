@@ -1,0 +1,12 @@
+email,username,password,role,businessType,supplierName,supplierMail,supplierAddress,supplierPhone,website
+proveedor@test.com,supplier,123123,USER,SUPPLIER,Lácteos La Granja,lacteos@lagranja.com,Ruta Nacional 5 Km 87,+1-555-0789,https://www.lacteoslagranja.com
+scrap@restocompras.com,scrap,123123,ADMIN,SUPPLIER,Test Supplier Company,proveedor@test.com,123 Main Street,+1-555-0123,https://www.testsupplier.com
+distribuidorapop@restocompras.com, distribuidorapop,123123,USER,SUPPLIER,Distribuidora Pop,distribuidorapop@restocompras.com, Roca 4298, Florida Oeste, Vicente Lopez, Buenos Aires, Argentina, +54-11-3952-8296,www.distribuidorapop.com.ar
+greenshop@restocompras.com, greenshop,123123,USER,SUPPLIER,Green Shop,greenshop@restocompras.com, Pasaje dorado 2141 Rosario – Santa fe,+54 9 341 3167654,https://greenshop.ar/
+lacteosgranero@restocompras.com, lacteosgranero,123123,USER,SUPPLIER,Lacteos Granero,lacteosgranero@restocompras.com,Rosario – Santa fe,+54 9 341 3167654,https://lacteos-garnero-rosario.callbell.shop/
+tyna@restocompras.com, tyna,123123,USER,SUPPLIER,tyna,tyna@restocompras.com,Rosario,0800-888-8962,https://www.tyna.com.ar/
+lapiala@restocompras.com, lapiala,123123,USER,SUPPLIER,La Piala de Patria,lapiala@restocompras.com,Rosario,0800-888-8962,https://www.restocompras.store
+distribuidorademarchi@restocompras.com, distribuidoraDeMarchi,123123,USER,SUPPLIER,Distribuidora Demarchi,distribuidorademarchi@restocompras.com,Rosario,0800-888-8962,https://www.restocompras.store
+laduvalina@restocompras.com, laduvalina,123123,USER,SUPPLIER,Laduvalina,laduvalina@restocompras.com,Rosario,0800-888-8962,https://www.restocompras.store
+labebidadetusfiestas@restocompras.com, labebidadetusfiestas,123123,USER,SUPPLIER,La bebida de tus fiestas,labebidadetusfiestas@restocompras.com,Rosario,0800-888-8962,https://www.restocompras.store
+restaurante@test.com,restaurant,123123,USER,RESTAURANT, Hard Rock Cafe, restaurante@test.com, Rosario, 4514502, https://www.hardrock.com/cafes/rosario/

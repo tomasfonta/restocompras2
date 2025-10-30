@@ -1,6 +1,5 @@
 package com.tf.restocompras.config.datainitializer;
 
-import com.tf.restocompras.config.security.ApplicationRoles;
 import com.tf.restocompras.model.ingredient.Ingredient;
 import com.tf.restocompras.model.item.Item;
 import com.tf.restocompras.model.product.Product;
@@ -8,8 +7,6 @@ import com.tf.restocompras.model.recipe.Recipe;
 import com.tf.restocompras.model.restaurant.Restaurant;
 import com.tf.restocompras.model.supplier.Supplier;
 import com.tf.restocompras.model.unit.Unit;
-import com.tf.restocompras.model.user.User;
-import com.tf.restocompras.model.user.UserBusinessType;
 import com.tf.restocompras.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +19,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-@Order(1)
+@Order(2)
 public class UserDataInitializer implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(UserDataInitializer.class);
@@ -54,115 +51,10 @@ public class UserDataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.info("Initializing supplier, restaurant and user data...");
 
-        // Create supplier entity first
-        Supplier supplier = null;
-        if (supplierRepository.findById(1L).isEmpty()) {
-            supplier = Supplier.builder()
-                    .name("Test Supplier Company")
-                    .mail("proveedor@test.com")
-                    .address("123 Main Street, Business District")
-                    .phoneNumber("+1-555-0123")
-                    .website("https://www.testsupplier.com")
-                    .rating(4.5)
-                    .build();
-            supplier = supplierRepository.save(supplier);
-            log.info("Created supplier: {} (ID: {})", supplier.getName(), supplier.getId());
-        } else {
-            supplier = supplierRepository.findById(1L).get();
-            log.info("Supplier already exists, skipping creation");
-        }
-
-        // Create restaurant entity first
-        Restaurant restaurant = null;
-        if (restaurantRepository.findById(1L).isEmpty()) {
-            restaurant = Restaurant.builder()
-                    .name("Test Restaurant")
-                    .mail("restaurante@test.com")
-                    .address("456 Food Avenue, Downtown")
-                    .phoneNumber("+1-555-0456")
-                    .website("https://www.testrestaurant.com")
-                    .build();
-            restaurant = restaurantRepository.save(restaurant);
-            log.info("Created restaurant: {} (ID: {})", restaurant.getName(), restaurant.getId());
-        } else {
-            restaurant = restaurantRepository.findById(1L).get();
-            log.info("Restaurant already exists, skipping creation");
-        }
-
-        // Create supplier user
-        if (userRepository.findByEmail("proveedor@test.com").isEmpty()) {
-            User supplierUser = User.builder()
-                    .username("supplier")
-                    .email("proveedor@test.com")
-                    .password(passwordEncoder.encode("123123"))
-                    .role(ApplicationRoles.USER)
-                    .userBusinessType(UserBusinessType.SUPPLIER)
-                    .supplier(supplier)
-                    .build();
-
-            User savedSupplierUser = userRepository.save(supplierUser);
-            log.info("Created supplier user: {} with email: {} (ID: {})",
-                    savedSupplierUser.getUsername(), savedSupplierUser.getEmail(), savedSupplierUser.getId());
-        } else {
-            log.info("Supplier user with email proveedor@test.com already exists, skipping creation");
-        }
-
-        // Create restaurant user
-        if (userRepository.findByEmail("restaurante@test.com").isEmpty()) {
-            User restaurantUser = User.builder()
-                    .username("restaurant")
-                    .email("restaurante@test.com")
-                    .password(passwordEncoder.encode("123123"))
-                    .role(ApplicationRoles.USER)
-                    .userBusinessType(UserBusinessType.RESTAURANT)
-                    .restaurant(restaurant)
-                    .build();
-
-            User savedRestaurantUser = userRepository.save(restaurantUser);
-            log.info("Created restaurant user: {} with email: {} (ID: {})",
-                    savedRestaurantUser.getUsername(), savedRestaurantUser.getEmail(), savedRestaurantUser.getId());
-        } else {
-            log.info("Restaurant user with email restaurante@test.com already exists, skipping creation");
-        }
-
-        // Create dairy supplier entity
-        Supplier dairySupplier = null;
-        if (supplierRepository.findById(2L).isEmpty()) {
-            dairySupplier = Supplier.builder()
-                    .name("Lácteos La Granja")
-                    .mail("lacteos@lagranja.com")
-                    .address("Ruta Nacional 5 Km 87, Zona Rural")
-                    .phoneNumber("+1-555-0789")
-                    .website("https://www.lacteoslagranja.com")
-                    .rating(4.8)
-                    .build();
-            dairySupplier = supplierRepository.save(dairySupplier);
-            log.info("Created dairy supplier: {} (ID: {})", dairySupplier.getName(), dairySupplier.getId());
-        } else {
-            dairySupplier = supplierRepository.findById(2L).get();
-            log.info("Dairy supplier already exists, skipping creation");
-        }
-
-        // Create dairy supplier user
-        if (userRepository.findByEmail("lacteos@test.com").isEmpty()) {
-            User dairyUser = User.builder()
-                    .username("lacteos")
-                    .email("lacteos@test.com")
-                    .password(passwordEncoder.encode("123123"))
-                    .role(ApplicationRoles.USER)
-                    .userBusinessType(UserBusinessType.SUPPLIER)
-                    .supplier(dairySupplier)
-                    .build();
-
-            User savedDairyUser = userRepository.save(dairyUser);
-            log.info("Created dairy supplier user: {} with email: {} (ID: {})",
-                    savedDairyUser.getUsername(), savedDairyUser.getEmail(), savedDairyUser.getId());
-        } else {
-            log.info("Dairy supplier user with email lacteos@test.com already exists, skipping creation");
-        }
+        Supplier supplier = supplierRepository.findByMail("proveedor@test.com").orElseThrow(() -> new RuntimeException("Supplier with mail proveedor@test.com not found"));
 
         // Create initial item: Coca Cola 1L
         if (itemRepository.findById(1L).isEmpty()) {
@@ -610,7 +502,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://d2r9epyceweg5n.cloudfront.net/stores/001/111/044/products/leche-la-serenisima-entera-1-lt1-d7dcae9a01e52ba56016037351003332-1024-1024.jpg")
                     .unit(Unit.L)
                     .quantity(1.0)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(lecheProduct)
                     .build();
 
@@ -630,7 +522,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://www.danone.es/content/dam/danone-es/danone-es-aop/productos/natural-azucarado/yogur-natural-azucarado/yogur-natural-azucarado-pack4.png")
                     .unit(Unit.KG)
                     .quantity(1.0)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(yogurProduct)
                     .build();
 
@@ -650,7 +542,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRkOOz3xxFbltZhbqoIMTmUppC9Z9ok-S-rDpXQGjdJiRLj3Yb9B_7-OFaGNjPffcwkN7g41a_MDXabShVQtyi8f3Z-riGXLV-hS25O9B2rncl7Z3b9E_cHAQ")
                     .unit(Unit.KG)
                     .quantity(0.3)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(quesoCremaProduct)
                     .build();
 
@@ -670,7 +562,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://restoshop.com.ar/wp-content/uploads/2024/06/manteca-la-serenisima-200gr.jpg")
                     .unit(Unit.KG)
                     .quantity(0.2)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(mantecaProduct)
                     .build();
 
@@ -690,7 +582,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://granjaelcuatro.com.mx/wp-content/uploads/2018/11/69-granja-el-4.png")
                     .unit(Unit.L)
                     .quantity(0.5)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(cremaProduct)
                     .build();
 
@@ -710,7 +602,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://media.area-gourmet.com/product/dulce-de-leche-havanna-250-g-800x800.jpg?width=1200")
                     .unit(Unit.KG)
                     .quantity(1.0)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(dulceProduct)
                     .build();
 
@@ -730,7 +622,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://ardiaprod.vtexassets.com/arquivos/ids/197971/Queso-Rallado-Parmesano-La-Serenisima-40-Gr-1-14098.jpg")
                     .unit(Unit.KG)
                     .quantity(0.2)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(paramesanoProduct)
                     .build();
 
@@ -750,7 +642,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://media.istockphoto.com/id/1989575540/es/vector/milk-illustration.jpg?s=612x612&w=0&k=20&c=51u0AF20IZ-amvQsn79nE170-gJEv8CLttHq7AhvuKo=")
                     .unit(Unit.KG)
                     .quantity(0.5)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(ricotaProduct)
                     .build();
 
@@ -770,7 +662,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://media.istockphoto.com/id/1989575540/es/vector/milk-illustration.jpg?s=612x612&w=0&k=20&c=51u0AF20IZ-amvQsn79nE170-gJEv8CLttHq7AhvuKo=")
                     .unit(Unit.L)
                     .quantity(1.0)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(lecheChocolatadaProduct)
                     .build();
 
@@ -790,7 +682,7 @@ public class UserDataInitializer implements CommandLineRunner {
                     .image("https://media.istockphoto.com/id/1989575540/es/vector/milk-illustration.jpg?s=612x612&w=0&k=20&c=51u0AF20IZ-amvQsn79nE170-gJEv8CLttHq7AhvuKo=")
                     .unit(Unit.L)
                     .quantity(1.0)
-                    .supplier(dairySupplier)
+                    .supplier(supplier)
                     .product(yogurBebibleProduct)
                     .build();
 
@@ -799,6 +691,8 @@ public class UserDataInitializer implements CommandLineRunner {
         }
 
         log.info("Created 10 dairy items for Lácteos La Granja supplier - Total items in system: 31");
+
+        Restaurant restaurant = restaurantRepository.findByMail("restaurante@test.com").orElseThrow(() -> new RuntimeException("Restaurant not found"));
 
         // Create recipe: Lomo Wellington for the restaurant
         if (recipeRepository.findById(1L).isEmpty()) {

@@ -6,5 +6,5 @@ public enum Unit {
     KG,
     ML,
     L,
-    UNIT
+    UNIT,
 }

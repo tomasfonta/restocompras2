@@ -49,5 +49,3 @@ public class ProductController {
         return ResponseEntity.ok(productService.findBestMatch(query));
     }
 }
-
-
