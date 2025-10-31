@@ -86,4 +86,10 @@ public class ItemService {
         return itemRepository.findBySupplier(supplier).stream()
                 .map(itemMapper::mapEntityToDto).collect(Collectors.toList());
     }
+
+    public void deleteAllBySupplierId(Long supplierId) {
+        Supplier supplier = supplierRepository.findById(supplierId)
+                .orElseThrow(() -> new NotFoundException("Supplier not found with id: " + supplierId));
+        itemRepository.deleteBySupplier(supplier);
+    }
 }

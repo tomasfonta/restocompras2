@@ -40,7 +40,7 @@ public class ItemController {
     public ResponseEntity<ItemResponseDto> createItem(@RequestBody ItemCreateRequestDto itemCreateRequestDto) {
         return ResponseEntity.ok(itemService.save(itemCreateRequestDto));
     }
-    
+
     @Operation(summary = "Update a Item", description = "Updates an existing Item")
     @PutMapping
     public ResponseEntity<ItemResponseDto> updateItem(@RequestBody ItemUpdateRequestDto itemUpdateRequestDto) {
@@ -58,6 +58,13 @@ public class ItemController {
     @GetMapping("/users/{supplierId}")
     public ResponseEntity<List<ItemResponseDto>> getItemsByUserId(@PathVariable Long supplierId) {
         return ResponseEntity.ok(itemService.findBySupplierId(supplierId));
+    }
+
+    @Operation(summary = "Delete all Items from a Supplier", description = "Deletes all items associated with a supplier by ID")
+    @DeleteMapping("/supplier/{supplierId}")
+    public ResponseEntity<Void> deleteAllItemsBySupplierId(@PathVariable Long supplierId) {
+        itemService.deleteAllBySupplierId(supplierId);
+        return ResponseEntity.noContent().build();
     }
 
 }
